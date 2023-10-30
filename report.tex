@@ -1,11 +1,12 @@
 \documentclass[coverpage]{article}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=1.3in]{geometry}
 \usepackage{pdfpages}
-\usepackage{wrapfig}
+\usepackage{subcaption}
 \usepackage{amsmath}
 
 \newcommand{\loggerpro}{\textit{Logger Pro}\texttrademark}
 \newcommand{\origin}{\textit{Origin Pro}\texttrademark}
+\newcommand{\iUnit}{\text{kg $\text{m}^2$}}
 
 \title{Rotational Kinetic Energy Lab}
 \date{October 31, 2023}
@@ -124,10 +125,16 @@
 		= \frac{1}{2} \cdot v^2 \cdot (M + \frac{I}{r^2})
 	\end{align}
 
-	Or, as will be used more frequently for our computations, the equivalent equation in the form
+	Or, as will be used later for our computations, the equivalent equation in the form
 	
 	\begin{align}
-		gy = \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2
+		gy = \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \label{eq:conservation-of-energy-gy-form}
+	\end{align}
+	
+	$v$ is a value that is determined by our \loggerpro software. It is computed with an advanced proprietary algorithm, but is similar to
+	
+	\begin{align}
+		v \approx \frac{\Delta{s}}{\Delta{T}} \label{eq:delta-s-delta-t}
 	\end{align}
 	
 	\section{Procedure}
@@ -144,6 +151,8 @@
 		\centering
 		\includegraphics[width=2in]{graphics/apparatus.png}
 	\end{figure}
+
+	\subsection{Taking Measurements}
 	
 	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $d$ from the lab manual, twice the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. We determined $r$ to be half the diameter. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$, whereas for $k$ we measured very carefully and chose the uncertainty to be $0.001 \text{m}$
 	
@@ -160,7 +169,7 @@
 		M_c&=0.06\ \text{kg} \notag
 	\end{align}
 
-	Also, we were provided with the mass of the Roto-Dyne wheel, $M_R$ and the mass loads, $M_L$.
+	Also, we were provided with the mass of the Roto-Dyne wheel, $M_R$ and the mass loads, $M_L$, of which there were 4.
 	
 	\begin{align}
 		M_R&=1.5\ \text{kg} \notag \\
@@ -172,8 +181,110 @@
 	\begin{align}
 		\Delta{s}=0.015\ \text{m} \notag
 	\end{align}
+
+	\subsection{Estimating Moment of Inertia}
+
+	Before measuring the moment of inertia, we decided to make a rough approximation. To do this, we used two different common models, the moment of inertia of a disc, $\frac{1}{2}Mr^2$, and the moment of inertia of a ring, $Mr^2$. These computations will not be accurate since the actual Rote-Dyne disc is neither a perfect disc nor a hoop. For our rough estimates, we took the radius to be $r$, and the mass to be
+	
+	\begin{align}
+		M_{tot} = M_R + 4 M_L \notag \\
+		= 2.4\ \text{kg}
+	\end{align}
+	
+	For the disc estimate, we got
+	
+	\begin{align}
+		I_{\text{disc}} = \frac{1}{2}Mr^2 \notag \\
+		= 0.048\ \iUnit
+	\end{align}
+	
+	For the hoop estimate, we got
+	
+	\begin{align}
+		I_{\text{hoop}} = Mr^2 \notag \\
+		= 0.096\ \iUnit
+	\end{align}
+
+	To determine an overall estimate, $I_{\text{est}}$, we averaged $I_{\text{disc}}$ and $I_{\text{hoop}}$, and then set the uncertainty to be that average. Assuming that the wheel is a hoop is an under-estimate, and assuming that the wheel is a disc is an over-estimate, so the actual moment of inertia should be somewhere between the two.
+	
+	\begin{align}
+		I_{\text{est}} = \frac{I_{\text{disc}} + I_{\text{hoop}}}{2} \notag \\
+		= 0.072 \pm 0.072\ \iUnit
+	\end{align}
+
+	\subsection{Monte Carlo Simulation}
+	
+	Before actually measuring the moment of inertia, we performed a Monte Carlo Simulation using our estimated $I$ so that we could compare a graph of data of the estimated value to a graph of data for the actual value later on.
+	
+	To perform this simulation, we began by creating a new Origin document, and arranged a table including a column for $\Delta{s}$, the overall displacement (vertical distance it has fallen) of the string, and $\Delta{T_0}$, the time elapsed since dropping the counterweight to arrive at that overall displacement. The values for $\Delta{s}$ were computed using the equation
+	
+	\begin{align}
+		y_i=i \Delta{s}
+	\end{align}
+
+	Which is simply stating that the total displacement of the rope is equal to the amount of a single displacement, a notch in the encoded pulley, times the number of increments, which is the total number of notches that passed by the laser at a given time point. To compute the $\Delta{T_0}$ from the $\Delta{s}$ we derived the following equation from equations \ref{eq:delta-s-delta-t} and \ref{eq:conservation-of-energy-gy-form}.
+	
+	First, we manipulated equation \ref{eq:conservation-of-energy-gy-form} by solving for $v$.
+	
+	\begin{align}
+		gy = \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \notag \\
+		v^2 = \frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy} \notag \\
+		v = \sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \label{eq:equation-for-v}
+	\end{align}
+	
+	Next we solved equation \ref{eq:delta-s-delta-t} for t. For our use case here, we will allow $\Delta{T}$ to be $\Delta{T_0}$.
+	
+	\begin{align}
+		v \approx \frac{\Delta{s}}{\Delta{T}} \notag \\
+		\Delta{T} = \frac{\Delta{s}}{v} \notag \\
+		\Delta{T_0} = \frac{\Delta{s}}{v} \label{eq:equation-for-delta-t-0}
+	\end{align}
+	
+	Then, we solved for $\Delta{T_0}$ by plugging in $v$ from equation~\ref{eq:equation-for-delta-t-0} and $\Delta{s}$ into equation~\ref{eq:equation-for-delta-t-0}.
+	
+	\begin{align}
+		\Delta{T_0} = \frac{\Delta{s}}{v} \notag \\
+		\Delta{T_0} = \frac{\Delta{s}}{\sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}}} \notag \\
+		\Delta{T_0}^2 = \frac{\Delta{s}^2}{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \notag \\
+		\Delta{T_0}^2 = \frac{\Delta{s}^2 (1 + \frac{I}{M r^2})}{2gy} \notag \\
+		\Delta{T_0} = \Delta{S} \sqrt{\frac{(1 + \frac{I}{M r^2})}{2gy}}
+	\end{align}
+
+	With a simple script we had \origin apply this equation to each row, utilizing that respective row's $\Delta{s}$ value. Now, since this data is purely based on an estimated moment of inertia value, we applied Monte Carlo randomization. To do this, we shifted each $\Delta{T0_i}$ by some $\Delta{T0_Gi}$ obtained from a Gaussian distribution $G$ with the given mean $0$ and $\sigma$ equal to the estimated uncertainty for $\Delta{t}$, $\delta_{\Delta{t}}$, which was given to be $0.0002 \text{s}$, resulting with a column with values for $\delta{t_R}$. This can be expressed formulaically as
+	
+	\begin{align}
+		\delta{T_R} = \Delta{T0} + \Delta{t} \cdot \text{grnd}()
+	\end{align}
+
+	After running this computation, for the first three values of $\Delta{T_r}$ we got
+
+	\begin{table}[h]
+		\centering
+		\caption{Samples of random Monte Carlo data generation}
+		\begin{tabular}{c|c}
+			trial \# & s \\ \hline
+			1 & 0.15409 \\
+			2 & 0.10925 \\
+			3 & 0.08891 \\ \hline
+			1 & 0.15381 \\
+			2 & 0.10883 \\
+			3 & 0.08919 \\ \hline
+			1 & 0.01540 \\
+			2 & 0.10891 \\
+			3 & 0.08891 \\ \hline
+			1 & 0.15385 \\
+			2 & 0.10918 \\
+			3 & 0.08894 \\
+		\end{tabular}
+	\end{table}
 	
 	\section{Results}
+	
+	For the actual results, we measured the velocity,  acceleration, time (duration), and position of the falling counterweight mass using the encoded pulley and \loggerpro. We then imported the data into \origin for analysis and to help us compile plots. To keep our data consistent, we decided to trim the first three rows and all rows after row 44. Data beyond that in either direction was problematic because of us abruptly setting up and stopping the counterweight from hitting the floor.
+	
+	To visualize our data, we plotted $v^2$ against displacement for both the system with and without load masses, and did the same for our simulation.
+	
+	Both plots and datatables can be found in the appendix, section \ref{sect:appendix}.
 	
 	\section{Analysis}
 	
@@ -186,4 +297,141 @@
 	\nocite{textbook}
 	\nocite{labManual}
 	\bibliography{sources}
+	
+	\onecolumn
+	
+	\section{Appendix} \label{sect:appendix}
+		
+	\begin{figure}[h]
+		\centering
+		\caption{Monte Carlo Simulation of Rotational Kinetic Energy Experiment plot}
+		\includegraphics[width=6in]{plots/monteCarloPlot.pdf}
+	\end{figure}
+		
+	\begin{figure}[h]
+		\centering
+		\caption{Without Masses $v^2$ vs sDist plot}
+		\includegraphics[width=6in]{plots/withMassesPlot.pdf}
+	\end{figure}
+		
+	\begin{figure}[h]
+		\centering
+		\caption{With Masses $v^2$ vs sDist plot}
+		\includegraphics[width=6in]{plots/withoutMassesPlot.pdf}
+	\end{figure}
+	
+	\begin{table}[!ht]
+		\caption{Data for falling counterweight \textbf{without} mass loads in place}
+		\vspace{.1in}
+		
+		\centering
+		\begin{tabular}{|l|l|l|l|l|}
+			Time & STime & SDist & SVel & SAccel \\ \hline
+			t & stime & sdist & svel & saccel \\ \hline
+			s & s & m & m/s & m/s\^2 \\ \hline
+			0.2003832 & 0.3409468 & 0.045 & 0.240637469 & 0.2974361002 \\ \hline
+			0.2421024 & 0.4010488 & 0.06 & 0.2587705469 & 0.3059740303 \\ \hline
+			0.2727832 & 0.4571542 & 0.075 & 0.2768823709 & 0.3396616489 \\ \hline
+			0.3099096 & 0.5096392 & 0.09 & 0.2950082819 & 0.3510465914 \\ \hline
+			0.3375832 & 0.5590336 & 0.105 & 0.3125067287 & 0.3574728706 \\ \hline
+			0.371984 & 0.6057826 & 0.12 & 0.3289729322 & 0.3469787101 \\ \hline
+			0.3977972 & 0.6503324 & 0.135 & 0.3445762028 & 0.3535079613 \\ \hline
+			0.4301136 & 0.6929332 & 0.15 & 0.3594867431 & 0.3465042602 \\ \hline
+			0.4541972 & 0.7338524 & 0.165 & 0.3734799691 & 0.3374400019 \\ \hline
+			0.4841948 & 0.7733118 & 0.18 & 0.3866063477 & 0.3278706007 \\ \hline
+			0.506816 & 0.8114928 & 0.195 & 0.3997294453 & 0.3595444818 \\ \hline
+			0.5350836 & 0.8484054 & 0.21 & 0.4130797945 & 0.3638046842 \\ \hline
+			0.5563028 & 0.8841552 & 0.225 & 0.4258449397 & 0.3503333039 \\ \hline
+			0.5829836 & 0.9188832 & 0.24 & 0.4381633461 & 0.3590888604 \\ \hline
+			0.6031832 & 0.9526498 & 0.255 & 0.4497965385 & 0.3299465981 \\ \hline
+			0.6285816 & 0.9856 & 0.27 & 0.4607194593 & 0.3330491259 \\ \hline
+			0.6478832 & 1.0177834 & 0.285 & 0.4715773455 & 0.3417015924 \\ \hline
+			0.6720832 & 1.0492332 & 0.3 & 0.4820423673 & 0.3238048217 \\ \hline
+			0.6905832 & 1.0800322 & 0.315 & 0.492183323 & 0.3347201767 \\ \hline
+			0.7137832 & 1.1101992 & 0.33 & 0.5023979233 & 0.3424834134 \\ \hline
+			0.7315832 & 1.1397582 & 0.345 & 0.5121068853 & 0.3144374509 \\ \hline
+			0.7539216 & 1.1687902 & 0.36 & 0.5216114938 & 0.3403302933 \\ \hline
+			0.7710904 & 1.1972824 & 0.375 & 0.5315253346 & 0.355568289 \\ \hline
+			0.792702 & 1.2252416 & 0.39 & 0.5413072074 & 0.3441565057 \\ \hline
+			0.8092096 & 1.2527124 & 0.405 & 0.5507273167 & 0.3416705778 \\ \hline
+			0.8302836 & 1.2797228 & 0.42 & 0.559880448 & 0.3360780896 \\ \hline
+			0.8462136 & 1.3063022 & 0.435 & 0.5692255573 & 0.3671062769 \\ \hline
+			0.8665272 & 1.3324336 & 0.45 & 0.5787253594 & 0.359973184 \\ \hline
+			0.8820832 & 1.358147 & 0.465 & 0.5869743702 & 0.2816386499 \\ \hline
+			0.9017832 & 1.383547 & 0.48 & 0.5946036744 & 0.3190939627 \\ \hline
+			0.9168836 & 1.4086054 & 0.495 & 0.602973345 & 0.3489192067 \\ \hline
+			0.9359832 & 1.4333056 & 0.51 & 0.6110845183 & 0.3078506391 \\ \hline
+			0.9506832 & 1.4577022 & 0.525 & 0.6186489591 & 0.3122719003 \\ \hline
+			0.9693164 & 1.481802 & 0.54 & 0.6266088147 & 0.3483025149 \\ \hline
+			0.983612 & 1.5055832 & 0.555 & 0.6359267169 & 0.4353334838 \\ \hline
+			1.0018836 & 1.5289834 & 0.57 & 0.6452122961 & 0.3582989806 \\ \hline
+			1.0158992 & 1.5520834 & 0.585 & 0.6529222225 & 0.3092271113 \\ \hline
+			1.0336832 & 1.5749334 & 0.6 & 0.661597301 & 0.4500795393 \\ \hline
+			1.0474092 & 1.5974336 & 0.615 & 0.669666613 & 0.2671862678 \\ \hline
+			1.0647832 & 1.6197336 & 0.63 & 0.6756628186 & 0.27059002 \\ \hline
+			1.0782148 & 1.6418362 & 0.645 & 0.6826017458 & 0.3572933224 \\ \hline
+			1.0952812 & 1.663686 & 0.66 & 0.6896131877 & 0.2844921273 \\ \hline
+			1.1083832 & 1.6853406 & 0.675 & 0.69766979 & 0.4596086524 \\ \hline
+			1.1251172 & 1.7066906 & 0.69 & 0.7060389196 & 0.32438475 \\ \hline
+			1.1379832 & 1.7278332 & 0.705 & 0.7123894853 & 0.2763517435 \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[!ht]
+		\caption{Data for falling counterweight \textbf{without} mass loads in place}
+		\vspace{.1in}
+		
+		\centering
+		\begin{tabular}{|l|l|l|l|l|}
+			Time & STime & SDist & SVel & SAccel \\
+			t & stime & sdist & svel & saccel \\ \hline
+			s & s & m & m/s & m/s\^2 \\ \hline
+			0.0942928 & 0.1784214 & 0.045 & 0.3931293508 & 0.6331416361 \\ \hline
+			0.118666 & 0.2154714 & 0.06 & 0.4167682347 & 0.6429114748 \\ \hline
+			0.13679 & 0.2505154 & 0.075 & 0.4395279097 & 0.6560084549 \\ \hline
+			0.1593652 & 0.2838154 & 0.09 & 0.4611842509 & 0.6446726969 \\ \hline
+			0.1763652 & 0.3156328 & 0.105 & 0.4813227422 & 0.6212064342 \\ \hline
+			0.1974776 & 0.3461942 & 0.12 & 0.5002408825 & 0.6168350372 \\ \hline
+			0.2134652 & 0.375645 & 0.135 & 0.5204425281 & 0.7550560866 \\ \hline
+			0.2334652 & 0.403888 & 0.15 & 0.5411476689 & 0.7111579009 \\ \hline
+			0.2485668 & 0.4311196 & 0.165 & 0.5590171297 & 0.6012483335 \\ \hline
+			0.2675656 & 0.457576 & 0.18 & 0.5759222213 & 0.6767102446 \\ \hline
+			0.2819648 & 0.4832344 & 0.195 & 0.5919181069 & 0.5701239701 \\ \hline
+			0.3000652 & 0.5082738 & 0.21 & 0.6071150987 & 0.6437223597 \\ \hline
+			0.3138984 & 0.5326654 & 0.225 & 0.6238645636 & 0.7296573993 \\ \hline
+			0.3312004 & 0.5563802 & 0.24 & 0.6392812271 & 0.5705149372 \\ \hline
+			0.3445048 & 0.5796034 & 0.255 & 0.6528166664 & 0.5951675979 \\ \hline
+			0.361188 & 0.602345 & 0.27 & 0.668869986 & 0.8166345302 \\ \hline
+			0.3740644 & 0.624472 & 0.285 & 0.6847467198 & 0.618420718 \\ \hline
+			0.390102 & 0.6461654 & 0.3 & 0.6968292431 & 0.4955147032 \\ \hline
+			0.4024884 & 0.6675292 & 0.315 & 0.7117831029 & 0.9044103837 \\ \hline
+			0.417674 & 0.6883282 & 0.33 & 0.7267542228 & 0.53518959 \\ \hline
+			0.4292784 & 0.7088134 & 0.345 & 0.737173249 & 0.4820351523 \\ \hline
+			0.4445652 & 0.7290278 & 0.36 & 0.7508551143 & 0.8716399856 \\ \hline
+			0.4560652 & 0.7487786 & 0.375 & 0.7655336953 & 0.6147383898 \\ \hline
+			0.4705868 & 0.768221 & 0.39 & 0.7764021555 & 0.5032779268 \\ \hline
+			0.4818648 & 0.7874214 & 0.405 & 0.7876149561 & 0.664697796 \\ \hline
+			0.495882 & 0.8063156 & 0.42 & 0.8001386413 & 0.6609667181 \\ \hline
+			0.5067812 & 0.8249194 & 0.435 & 0.8130346045 & 0.72541275 \\ \hline
+			0.5206656 & 0.8432194 & 0.45 & 0.8231695853 & 0.3822354223 \\ \hline
+			0.5311832 & 0.8613652 & 0.465 & 0.8321622217 & 0.6089180588 \\ \hline
+			0.5446652 & 0.8792732 & 0.48 & 0.8437710657 & 0.6875800459 \\ \hline
+			0.554982 & 0.8969236 & 0.495 & 0.8544283269 & 0.520014252 \\ \hline
+			0.5680952 & 0.9143864 & 0.51 & 0.8665462466 & 0.8678410374 \\ \hline
+			0.5782656 & 0.931549 & 0.525 & 0.8783503608 & 0.5077214323 \\ \hline
+			0.5911116 & 0.948543 & 0.54 & 0.8933737653 & 1.260361948 \\ \hline
+			0.6010652 & 0.965139 & 0.555 & 0.9110416678 & 0.8688140546 \\ \hline
+			0.6135784 & 0.9814764 & 0.57 & 0.915255149 & -0.3530060006 \\ \hline
+			0.6232648 & 0.9979174 & 0.585 & 0.9163732773 & 0.4890230607 \\ \hline
+			0.6353656 & 1.0142154 & 0.6 & 0.9275233967 & 0.8792576405 \\ \hline
+			0.6447648 & 1.0302654 & 0.615 & 0.9399816885 & 0.673177482 \\ \hline
+			0.6569652 & 1.046133 & 0.63 & 0.9503827681 & 0.6378058508 \\ \hline
+			0.6663652 & 1.0618334 & 0.645 & 0.9590269548 & 0.4633363769 \\ \hline
+			0.6780932 & 1.0774156 & 0.66 & 0.9699853551 & 0.9431916229 \\ \hline
+			0.6870656 & 1.0927652 & 0.675 & 0.9830297701 & 0.7564507123 \\ \hline
+			0.6985632 & 1.1079356 & 0.69 & 0.9919658955 & 0.4216494522 \\ \hline
+			0.7075648 & 1.1230088 & 0.705 & 0.999952488 & 0.6380581699 \\ \hline
+		\end{tabular}
+	\end{table}
+	
 \end{document}
