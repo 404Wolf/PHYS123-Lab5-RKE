@@ -174,8 +174,8 @@
 	Also, we were provided with the mass of the \rwheel, $M_R$ and the mass loads, $M_L$, of which there were 4.
 	
 	\begin{align}
-		M_R&=1.5\ \text{kg} \label{eq:def-mr} \\
-		M_L&=.225 \pm .002\ \text{kg} \label{eq:def-ml}
+		M_R &= 1.5\ \text{kg} \label{eq:def-mr} \\
+		M_L &= 0.225 \pm 0.002\ \text{kg} \label{eq:def-ml}
 	\end{align}
 	
 	For the encoded pulley that we used to measure velocity and length of unrolled string it was given that the gaps between intervals of measurement, $\Delta{s}$, was
@@ -316,7 +316,7 @@
 	
 	\section{Analysis}
 	
-	\subsection{Computing $I$ for System w/Masses}
+	\subsection{Computing $I$ for w/Masses}
 	
 	\newcommand{\iMass}{I_{\text{mass}}}
 	\newcommand{\slopeMass}{B_{\text{mass}}}
@@ -363,16 +363,15 @@
 	\begin{align}
 		r &= 0.200 \pm 0.002 \ \text{m} \tag{\ref{eq:def-r}} \\
 		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \\
-		\slopeMass &= 0.63436 \pm 0.00104\ \frac{\text{m}}{\text{s}^2} \\
 		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}} \notag \\
-		B = .68204 \pm .00168 \frac{\text{m}}{\text{s}^2}
+		B &= 0.68204 \pm 0.00168 \frac{\text{m}}{\text{s}^2}
 	\end{align}
 
 	So,
 	
 	\begin{align}
-		I &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.63436} - 1) \notag \\
-		&\approx 0.07182\ \iUnit
+		I &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.68204} - 1) \notag \\
+		&\approx 0.06663\ \iUnit
 	\end{align}
 
 	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}, only factoring the error on $I$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. 
@@ -389,61 +388,91 @@
 	
 	\begin{align}
 		\delta_I = 2 \delta_B \frac{M g r^2}{B^2}
-		&\approx 0.00012\ \iUnit
+		&\approx 0.00017\ \iUnit
 	\end{align}
 	
 	So, we can succinctly state
 	
 	\begin{align}
-		I = 0.07182 \pm 0.00012\ \iUnit \label{eq:def-i-measured}
+		I = 0.06663 \pm 0.00017\ \iUnit \label{eq:def-i-measured}
 	\end{align}
 
 	Looking back at our predicted value for $I$ from section \ref{sect:estimating-moment-of-inertia}, we chose an estimate of $I$, denoting it $I_{\text{est}}$. Putting the previously estimated $I$, ``$I_{\text{est}}$'' inline with the measured $I$, ``$I$'', we have
 		
 	\begin{align}
 		I_{\text{est}} &= 0.072 \pm 0.072\ \iUnit \tag{\ref{eq:def-i-est}} \\
-		I &= 0.07182 \pm 0.00012\ \iUnit \tag{\ref{eq:def-i-measured}}
+		I &= 0.06663 \pm 0.00017\ \iUnit \tag{\ref{eq:def-i-measured}}
 	\end{align}
 
 	It is obvious that the actual value falls within one to two uncertainty intervals of the estimated value. The more important question, however, is whether the estimated value falls within one to two uncertainty intervals of the actual value. Two uncertainty intervals is
 	
 	\begin{align}
 		\delta_I \cdot 2 \notag \\
-		&= 0.00012 \cdot 2 \notag \\
-		&= 0.00024 \notag
+		&= 0.00017 \cdot 2 \notag \\
+		&= 0.00034 \notag
 	\end{align}
 	
 	So, mathematically, we are checking
 	
 	\begin{align}
 		0.07182 &\in \notag \\
-		&\in [0.07182 - 0.00024, 0.07182 + 0.00024] \notag \\
-		&\in [0.07158, 0.07206]
+		&\notin [0.07182 - 0.00034, 0.07182 + 0.00034] \notag \\
+		&\notin [0.07148, 0.07216]
 	\end{align}
 
 	\newcommand{\iSkew}{\Delta{I}_{\text{skew}}}
 
-	Which is true, so our measured indeed value falls within one to two uncertainty intervals from our estimate. To see how off we are, a percentage value also can be computed, $\iSkew$
+	Which is false, so our measured indeed value \textbf{does not} fall within one to two uncertainty intervals from our estimate. To see how off we are, a percentage value also can be computed, $\iSkew$
 	
 	\begin{align}
 		\iSkew &= 100 \cdot (1 - \frac{I}{I_{\text{est}}}) \notag \\
-		&= 100 \cdot (1 - \frac{0.07182}{0.072}) \notag \\
-		&= 100 \cdot (1 - 0.9975) \notag \\
-		&= 25\%
+		&\approx 100 \cdot (1 - \frac{0.06663}{0.072}) \notag \\
+		&= 100 \cdot (1 - 0.92541) \notag \\
+		&= 7.45\%
 	\end{align}
 
-	\subsection{Computing $I$ for System w/o Masses}
+	\subsection{Computing $I$ for w/o Masses}
 	
 	For the sake of completion we compute the value of $I$ using the same equations for $I$, equation \ref{eq:i-for-masses} and $\delta_{I}$, equation \ref{eq:delta-i-formula}. The variable name below will be $I$ too, but for all ``$I$''s in this section please assuming $I$ to be the moment of inertia for the system \textbf{without} masses.
 	
-	For the system without masses, \origin produced the linear regression value
+	For the system without masses, \origin~produced the linear regression value
 	
 	\begin{align}
-		B = 
+		B = 1.26494 \pm 0.00889 \frac{\text{m}}{\text{s}^2}
 	\end{align}
 	
 	\begin{align}
-		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2}
+		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
+		&= (0.0600)(0.200)^2 \cdot (\frac{2(9.81)}{(1.26494)} - 1) \notag \\
+		&\pm 2 (0.00889) \frac{(0.0600) (9.81) (0.200)^2}{(1.26494)^2} \notag
+	\end{align}
+
+	Which evaluates to
+	
+	\begin{align}
+		I &= 0.03482 \pm .00026\ \iUnit
+	\end{align}
+
+	for the massless system. It makes intuitive sense that the moment of inertia is lesser. Inertia is a measure of all the infinite infinitesimally small point masses of an object. There are less masses in the system without mass loads, so the moment of inertia indeed should be notably lesser.
+	
+	\subsection{Mass Load $I$}
+	
+	Knowing the experimental moment of inertia for the system with the mass loads and the system without the mass loads, we can compute $I_L$, the moment of inertia of the system only with the mass loads, by subtracting the moment of inertia of the system with the mass loads by the system without the mass loads. For this section, we will rename $I$ for the masses system $I_1$ and $I$ for the no masses system $I_2$
+	
+	\begin{align}
+		I_L &= I_1 - I_2 \notag \\
+		&= 0.06663 - 0.03482 \notag \\
+		&= 0.03181\ \iUnit
+	\end{align}
+	
+	We will base the uncertainty of this measurement on the literal, complete equation, subbing in $I$s for equation \ref{eq:i-for-masses}. We will also denote $B$ for the system with masses here as $B_1$ and $B$ for the system without masses as $B_2$.
+	
+	\begin{align}
+		Mr^2 \cdot (\frac{2g}{B_1} - 1) - Mr^2 \cdot (\frac{2g}{B_2} - 1)
+	\end{align}
+	
+	\begin{align}
+		\delta_{M_L} = 0.002\ \text{kg} \tag{\ref{eq:def-ml}}
 	\end{align}
 	
 	\section{Conclusion}
