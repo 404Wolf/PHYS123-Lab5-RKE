@@ -4,9 +4,11 @@
 \usepackage{subcaption}
 \usepackage{amsmath}
 
-\newcommand{\loggerpro}{\textit{Logger Pro}\texttrademark}
-\newcommand{\origin}{\textit{Origin Pro}\texttrademark}
+\newcommand{\softwareText}[1]{\textit{#1}\texttrademark}
+\newcommand{\loggerpro}{\softwareText{Logger Pro}}
+\newcommand{\origin}{\softwareText{Origin Pro}}
 \newcommand{\iUnit}{\text{kg $\text{m}^2$}}
+\newcommand{\rwheel}{Roto-Dyne wheel}
 
 \title{Rotational Kinetic Energy Lab}
 \date{October 31, 2023}
@@ -32,7 +34,7 @@
 	Moment of inertia, often denoted by $I$, is a function of the specific geometry and mass distribution of an object. Moment of inertia is implicitly relative to the axis of rotation. Where $R$ is the distance from the axis of rotation and $M$ is the mass of the object, for a point mass the moment of inertia, $I$, is given by
 	
 	\begin{align}
-		I=MR^2
+		I&=M R^2
 	\end{align}
 
 	The entire moment of inertia can be computed by thinking of a given object as a collection of tiny masses. As the masses' volumes shrink down to some small volume with some proportionately small mass, the can then be eventually said to be the differential $dM$. Integrating all the small point masses across the entire object implies that the entire moment of inertia of an object, $I_{tot}$, is given by
@@ -55,23 +57,23 @@
 	Since we know that
 	
 	\begin{align}
-		\frac{\theta}{2\pi} = \frac{s}{2\pi R} \notag \\
-		s=\theta R
+		\frac{\theta}{2\pi}&=\frac{s}{2\pi R} \notag \\
+		s&=\theta R
 	\end{align}
 
 	and 
 	
 	\begin{align}
-		\frac{d}{dt}s = \frac{d}{dt}\theta R \notag \\
-		v = \omega r \label{eq:omega-v-relationship}
+		\frac{d}{dt}s&=\frac{d}{dt}\theta R \notag \\
+		v&=\omega r \label{eq:omega-v-relationship}
 	\end{align}
 
 	We can then derive from equation \ref{eq:translational-kinetic} that the rotational kinetic energy, $K_R$, is
 	
 	\begin{align}
-		K_R = \frac{1}{2}M(\omega R)^2 \notag \\
-		= \frac{1}{2} (M R^2) \omega^2 \notag \\
-		= \frac{1}{2} I \omega^2 \label{eq:rotational-kinetic}
+		K_R&=\frac{1}{2}M(\omega R)^2 \notag \\
+		&=\frac{1}{2} (M R^2) \omega^2 \notag \\
+		&=\frac{1}{2} I \omega^2 \label{eq:rotational-kinetic}
 	\end{align}
 
 	where $I$ is defined to be the moment of inertia about the axis of rotation.
@@ -79,13 +81,13 @@
 	For the mass in figure \ref{fig:apparatus}~descends downwards due to gravity, it begins to lose its gravitational potential energy, $U_W$. The total energy of the system is internally conserved, however a small amount of energy is lost due to friction. So, where $\Delta{U}_W$ is the change in the gravitational potential energy of the counterweight, $K_T$ is the translational kinetic energy of the counterweight, and $K_R$ is the rotational kinetic energy of the counterweight, we state that
 	
 	\begin{align}
-		\Delta{U}_W + K_T + K_R = W_f
+		\Delta{U}_W + K_T + K_R&=W_f
 	\end{align}
 
 	Which, using equations \ref{eq:rotational-kinetic} and \ref{eq:translational-kinetic}, implies that
 	
 	\begin{align}
-		\Delta{U}_W + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2) = W_f
+		\Delta{U}_W + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=W_f
 	\end{align}
 
 	$\Delta{U}_W$ should be negative, and $K_T$ \& $K_R$ positive because the mass is falling, and, thus, losing gravitational kinetic energy, whilst simultaneously proportionately gaining kinetic energy.
@@ -93,7 +95,7 @@
 	Using the fact that gravitational potential energy for an object at height $h$ of mass $m$ in an environment where gravity can be approximated to $g$ is given to be
 	
 	\begin{align}
-		U_G = (M \cdot g \cdot h)
+		U_G&=(M \cdot g \cdot h)
 	\end{align}
 	
 	Plugging this in, and renaming $h$ be $y$, we get the final equation
@@ -101,7 +103,7 @@
 	\newcommand{\mgy}{(M \cdot g \cdot y)}
 	
 	\begin{align}
-		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2) = W_f \label{eq:total-energy-with-friction}
+		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=W_f \label{eq:total-energy-with-friction}
 	\end{align}
 	
 	\subsection{Working Equation}
@@ -109,20 +111,20 @@
 	Since for our specific experiment we used paperclips attached to the counterweight to cancel out friction, we can instead rewrite equation \ref{eq:total-energy-with-friction} to be
 	
 	\begin{align}
-		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2) = 0
+		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=0
 	\end{align}
 	
 	Carefully noting that we have discluded the energy of the moving paperclips, as it is negligible in comparison to the other energies of the system. And, to further simplify things, we will define $y$ to be vertically positive, so as to make the equation into
 	
 	\begin{align}
-		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2) = 0
+		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=0
 	\end{align}
 
 	Then, using relationship \ref{eq:omega-v-relationship}, we plug in $\frac{v}{r}$ for $\omega$, resulting in the equation
 	
 	\begin{align}
-		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I (\frac{v}{r})^2) = 0 \notag \\
-		= \frac{1}{2} \cdot v^2 \cdot (M + \frac{I}{r^2})
+		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I (\frac{v}{r})^2)&=0 \notag \\
+		&=\frac{1}{2} \cdot v^2 \cdot (M + \frac{I}{r^2})
 	\end{align}
 
 	Or, as will be used later for our computations, the equivalent equation in the form
@@ -147,7 +149,7 @@
 
 	\begin{figure}
 		\label{fig:apparatus}
-		\caption{Roto-Dyne Inertia Wheel Apparatus \cite{labManual}}
+		\caption{\rwheel Inertia Wheel Apparatus \cite{labManual}}
 		\centering
 		\includegraphics[width=2in]{graphics/apparatus.png}
 	\end{figure}
@@ -157,23 +159,23 @@
 	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $d$ from the lab manual, twice the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. We determined $r$ to be half the diameter. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$, whereas for $k$ we measured very carefully and chose the uncertainty to be $0.001 \text{m}$
 	
 	\begin{align}
-		d&=0.200 \pm 0.002\ \text{m} \notag \\
-		r&= 0.100 \pm 0.002\ \text{m} \notag \\
-		k&=0.073 \pm 0.001\ \text{m} \notag
+		d&=0.200 \pm 0.002\ \text{m} \label{eq:def-d} \\
+		r&=0.100 \pm 0.002\ \text{m} \label{eq:def-r} \\
+		k&=0.073 \pm 0.001\ \text{m} \label{eq:def-k}
 	\end{align}
 
-	We used a counterweight with a given mass of $0.06\text{kg}$ to provide a torque to spin our Roto-Dyne wheel, as can be seen in figure~\ref{fig:apparatus}. To account for friction, we incrementally added paperclips to the bottom of the counterweight. We continued to add paperclips up until the mass would fall at a constant speed to counteract the force of friction, using \loggerpro~software and an encoded pulley to monitor acceleration and velocity. Let $M_c$ be the mass of the counterweight and $M_p$ be the mass of the paperclips opposing friction, not used in our computations but still important to the experimental design.
+	We used a counterweight with a given mass of $0.06\text{kg}$ to provide a torque to spin our \rwheel, as can be seen in figure~\ref{fig:apparatus}. To account for friction, we incrementally added paperclips to the bottom of the counterweight. We continued to add paperclips up until the mass would fall at a constant speed to counteract the force of friction, using \loggerpro~software and an encoded pulley to monitor acceleration and velocity. Let $M_c$ be the mass of the counterweight and $M_p$ be the mass of the paperclips opposing friction, not used in our computations but still important to the experimental design.
 	
 	\begin{align}
-		M_p&=0.0015 \pm 0.0001\ \text{kg} \notag \\
-		M_c&=0.06\ \text{kg} \notag
+		M_p&=0.0015 \pm 0.0001\ \text{kg} \label{eq:def-mp} \\
+		M_c&=0.06\ \text{kg} \label{eq:def-mc}
 	\end{align}
 
-	Also, we were provided with the mass of the Roto-Dyne wheel, $M_R$ and the mass loads, $M_L$, of which there were 4.
+	Also, we were provided with the mass of the \rwheel, $M_R$ and the mass loads, $M_L$, of which there were 4.
 	
 	\begin{align}
-		M_R&=1.5\ \text{kg} \notag \\
-		M_L&=.225 \pm .002\ \text{kg} \notag
+		M_R&=1.5\ \text{kg} \label{eq:def-mr} \\
+		M_L&=.225 \pm .002\ \text{kg} \label{eq:def-ml}
 	\end{align}
 	
 	For the encoded pulley that we used to measure velocity and length of unrolled string it was given that the gaps between intervals of measurement, $\Delta{s}$, was
@@ -187,36 +189,36 @@
 	Before measuring the moment of inertia, we decided to make a rough approximation. To do this, we used two different common models, the moment of inertia of a disc, $\frac{1}{2}Mr^2$, and the moment of inertia of a ring, $Mr^2$. These computations will not be accurate since the actual Rote-Dyne disc is neither a perfect disc nor a hoop. For our rough estimates, we took the radius to be $r$, and the mass to be
 	
 	\begin{align}
-		M_{tot} = M_R + 4 M_L \notag \\
-		= 2.4\ \text{kg}
+		M_{tot}&=M_R + 4 M_L \notag \\
+		&= 2.4\ \text{kg}
 	\end{align}
 	
 	For the disc estimate, we got
 	
 	\begin{align}
-		I_{\text{disc}} = \frac{1}{2}Mr^2 \notag \\
-		= 0.048\ \iUnit
+		I_{\text{disc}}&=\frac{1}{2}Mr^2 \notag \\
+		&= 0.048\ \iUnit
 	\end{align}
 	
 	For the hoop estimate, we got
 	
 	\begin{align}
-		I_{\text{hoop}} = Mr^2 \notag \\
-		= 0.096\ \iUnit
+		I_{\text{hoop}}&= Mr^2 \notag \\
+		&= 0.096\ \iUnit
 	\end{align}
 
 	To determine an overall estimate, $I_{\text{est}}$, we averaged $I_{\text{disc}}$ and $I_{\text{hoop}}$, and then set the uncertainty to be that average. Assuming that the wheel is a hoop is an under-estimate, and assuming that the wheel is a disc is an over-estimate, so the actual moment of inertia should be somewhere between the two.
 	
 	\begin{align}
-		I_{\text{est}} = \frac{I_{\text{disc}} + I_{\text{hoop}}}{2} \notag \\
-		= 0.072 \pm 0.072\ \iUnit
+		I_{\text{est}}&=\frac{I_{\text{disc}} + I_{\text{hoop}}}{2} \notag \\
+		&= 0.072 \pm 0.072\ \iUnit
 	\end{align}
 
 	\subsection{Monte Carlo Simulation}
 	
 	Before actually measuring the moment of inertia, we performed a Monte Carlo Simulation using our estimated $I$ so that we could compare a graph of data of the estimated value to a graph of data for the actual value later on.
 	
-	To perform this simulation, we began by creating a new Origin document, and arranged a table including a column for $\Delta{s}$, the overall displacement (vertical distance it has fallen) of the string, and $\Delta{T_0}$, the time elapsed since dropping the counterweight to arrive at that overall displacement. The values for $\Delta{s}$ were computed using the equation
+	To perform this simulation, we began by creating a new \origin~document, and arranged a table including a column for $\Delta{s}$, the overall displacement (vertical distance it has fallen) of the string, and $\Delta{T_0}$, the time elapsed since dropping the counterweight to arrive at that overall displacement. The values for $\Delta{s}$ were computed using the equation
 	
 	\begin{align}
 		y_i=i \Delta{s}
@@ -227,30 +229,30 @@
 	First, we manipulated equation \ref{eq:conservation-of-energy-gy-form} by solving for $v$.
 	
 	\begin{align}
-		gy = \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \notag \\
-		v^2 = \frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy} \notag \\
-		v = \sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \label{eq:equation-for-v}
+		gy&=\frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \notag \\
+		v^2&=\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy} \notag \\
+		v&=\sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \label{eq:equation-for-v}
 	\end{align}
 	
 	Next we solved equation \ref{eq:delta-s-delta-t} for t. For our use case here, we will allow $\Delta{T}$ to be $\Delta{T_0}$.
 	
 	\begin{align}
-		v \approx \frac{\Delta{s}}{\Delta{T}} \notag \\
-		\Delta{T} = \frac{\Delta{s}}{v} \notag \\
-		\Delta{T_0} = \frac{\Delta{s}}{v} \label{eq:equation-for-delta-t-0}
+		v&\approx \frac{\Delta{s}}{\Delta{T}} \notag \\
+		\Delta{T}&= \frac{\Delta{s}}{v} \notag \\
+		\Delta{T_0}&= \frac{\Delta{s}}{v} \label{eq:equation-for-delta-t-0}
 	\end{align}
 	
 	Then, we solved for $\Delta{T_0}$ by plugging in $v$ from equation~\ref{eq:equation-for-delta-t-0} and $\Delta{s}$ into equation~\ref{eq:equation-for-delta-t-0}.
 	
 	\begin{align}
-		\Delta{T_0} = \frac{\Delta{s}}{v} \notag \\
-		\Delta{T_0} = \frac{\Delta{s}}{\sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}}} \notag \\
-		\Delta{T_0}^2 = \frac{\Delta{s}^2}{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \notag \\
-		\Delta{T_0}^2 = \frac{\Delta{s}^2 (1 + \frac{I}{M r^2})}{2gy} \notag \\
-		\Delta{T_0} = \Delta{S} \sqrt{\frac{(1 + \frac{I}{M r^2})}{2gy}}
+		\Delta{T_0}&= \frac{\Delta{s}}{v} \notag \\
+		\Delta{T_0}&= \frac{\Delta{s}}{\sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}}} \notag \\
+		\Delta{T_0}^2&= \frac{\Delta{s}^2}{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \notag \\
+		\Delta{T_0}^2&= \frac{\Delta{s}^2 (1 + \frac{I}{M r^2})}{2gy} \notag \\
+		\Delta{T_0}&= \Delta{S} \sqrt{\frac{(1 + \frac{I}{M r^2})}{2gy}}
 	\end{align}
 
-	With a simple script we had \origin apply this equation to each row, utilizing that respective row's $\Delta{s}$ value. Now, since this data is purely based on an estimated moment of inertia value, we applied Monte Carlo randomization. To do this, we shifted each $\Delta{T0_i}$ by some $\Delta{T0_Gi}$ obtained from a Gaussian distribution $G$ with the given mean $0$ and $\sigma$ equal to the estimated uncertainty for $\Delta{t}$, $\delta_{\Delta{t}}$, which was given to be $0.0002 \text{s}$, resulting with a column with values for $\delta{t_R}$. This can be expressed formulaically as
+	With a simple script we had \origin~apply this equation to each row, utilizing that respective row's $\Delta{s}$ value. Now, since this data is purely based on an estimated moment of inertia value, we applied Monte Carlo randomization. To do this, we shifted each $\Delta{T0_i}$ by some $\Delta{T0_Gi}$ obtained from a Gaussian distribution $G$ with the given mean $0$ and $\sigma$ equal to the estimated uncertainty for $\Delta{t}$, $\delta_{\Delta{t}}$, which was given to be $0.0002 \text{s}$, resulting with a column with values for $\delta{t_R}$. This can be expressed formulaically as
 	
 	\begin{align}
 		\delta{T_R} = \Delta{T0} + \Delta{t} \cdot \text{grnd}()
@@ -280,13 +282,101 @@
 	
 	\section{Results}
 	
-	For the actual results, we measured the velocity,  acceleration, time (duration), and position of the falling counterweight mass using the encoded pulley and \loggerpro. We then imported the data into \origin for analysis and to help us compile plots. To keep our data consistent, we decided to trim the first three rows and all rows after row 44. Data beyond that in either direction was problematic because of us abruptly setting up and stopping the counterweight from hitting the floor.
+	\subsection{Plotting Data}
 	
-	To visualize our data, we plotted $v^2$ against displacement for both the system with and without load masses, and did the same for our simulation.
+	For the actual results, we measured the velocity,  acceleration, time (duration), and position of the falling counterweight mass using the encoded pulley and \loggerpro. We then imported the data into \origin~for analysis and to help us compile plots. To keep our data consistent, we decided to trim the first three rows and all rows after row 44. Data beyond that in either direction was problematic because of us abruptly setting up and stopping the counterweight from hitting the floor.
 	
-	Both plots and datatables can be found in the appendix, section \ref{sect:appendix}.
+	To visualize our data, we plotted $v^2$ against displacement for both the system with and without load masses, and did the same for our simulation. For our $v^2$ column in \origin~we used
+	
+	\begin{align}
+		v&=\frac{\Delta{s}}{\Delta{T}} \notag \\
+		v^2&=(\frac{\Delta{s}}{\Delta{T}})^2 \notag \\
+		v^2&=(\frac{0.015}{\Delta{T}_i})^2 \label{eq:vsqr-base-equation}
+	\end{align}
+
+	To include error bars in our \origin~plot, we applied the derivative method row-wise to equation~\ref{eq:vsqr-base-equation}, using equation \ref{eq:vsqr-uncert}. We obtained the value
+	
+	\begin{align}
+		\delta_{\Delta{T}} = 0.0002 \text{s}
+	\end{align}
+
+	from our lab manual, which is a consequence of the intrinsic inaccuracy of \loggerpro~and our recording hardware. Solving for $\delta_{v^2}$, we got
+	 
+	\begin{align}
+		\delta_{v^2}&=|\frac{\partial}{\partial \Delta{T_i}} ((\frac{0.015}{\Delta{T}_i})^2) \cdot \delta_{\Delta{t}}| \notag \\
+		&=|0.015^2 \cdot \frac{\partial}{\partial \Delta{T_i}} (\Delta{T}^2) \cdot \delta_{\Delta{t}}| \notag \\
+		&=|0.000225 \cdot -2 \Delta{T}^{-3} \cdot \delta_{\Delta{t}}| \notag \\
+		&=\frac{.00000009}{\Delta{T}^3}
+		\label{eq:vsqr-uncert}
+	\end{align}
+	
+	Then we used \origin~to compute a line of best fit, of which the regression and slope has been superposed onto our plot figures, figure \ref{fig:monte-carlo-simulation}, \ref{fig:plot-with-masses}, and \ref{fig:plot-without-masses}.
+	
+	These aforementioned plots can be found in the appendix, section \ref{sect:appendix}. Additionally, tables \ref{table:with-masses-table} and \ref{table:without-masses-table} contain the actual datatables with raw \loggerpro data used for generating the plots.
 	
 	\section{Analysis}
+	
+	\subsection{Computing $I$}
+	
+	\newcommand{\iMass}{I_{\text{mass}}}
+	\newcommand{\slopeMass}{B_{\text{mass}}}
+	\newcommand{\iWithoutMass}{I_{\text{massless}}}
+	\newcommand{\slopeWithoutMass}{B_{\text{massless}}}
+	
+	In analyzing our results, our primary objective was to determine whether our estimate for the moment of inertia of the \rwheel was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope, $\slopeMass$ and $\slopeWithoutMass$, obtained through \origin's provided linear fit line.
+	
+	Using the elementary equation for slope, $m$, with a linear function plotted on an $x$-$y$ graph,
+	
+	\begin{align}
+		m=\frac{\Delta{y}}{\Delta{x}}
+	\end{align}
+
+	We determined that for our vertical axis $v^2$ and horizontal axis $y$,
+	
+	\begin{align}
+		\slopeMass&=\frac{v^2}{y} &
+		\slopeWithoutMass&=\frac{v^2}{y} \label{eq:applied-slope-equations}
+	\end{align}
+
+	First, we solved equation \ref{eq:conservation-of-energy-gy-form}~for $v^2$ as a function of $y$
+	
+	\begin{align}
+		gy &= \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \tag{\ref{eq:conservation-of-energy-gy-form}} \\
+		v^2 &= \frac{2gy}{1 + \frac{I}{Mr^2}}
+	\end{align}
+
+	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$
+	
+	\begin{align}
+		B &= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \notag \\
+		&= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \cdot \frac{1 + \frac{I}{Mr^2}}{1 + \frac{I}{Mr^2}} \notag \\
+		&= \frac{2g}{(1 + \frac{I}{Mr^2})} \notag \\
+		By\frac{I}{Mr^2} &= 2g - B \notag \\
+		I &= Mr^2 \cdot \frac{2g - B}{B} \notag \\
+		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-for-masses}
+	\end{align}
+
+	We then plugged in the values to solve for $I$ for the system including the load masses. We were not interested in the system without the load masses for computing $I$, and did not make a prediction for that system.
+	
+	\begin{align}
+		r &= 0.200 \pm 0.002 \ \text{m} \tag{\ref{eq:def-r}} \\
+		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \\
+		\slopeMass &= 0.63436 \pm 0.00104\ \frac{\text{m}}{\text{s}^2} \\
+		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}}
+	\end{align}
+
+	So,
+	
+	\begin{align}
+		I &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.63436} - 1)
+		&\approx 0.07182914
+	\end{align}
+
+	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}
+	
+	\begin{align}
+		content...
+	\end{align}
 	
 	\section{Conclusion}
 	
@@ -302,25 +392,25 @@
 	
 	\section{Appendix} \label{sect:appendix}
 		
-	\begin{figure}[h]
+	\begin{figure}[h] \label{fig:monte-carlo-simulation}
 		\centering
 		\caption{Monte Carlo Simulation of Rotational Kinetic Energy Experiment plot}
 		\includegraphics[width=6in]{plots/monteCarloPlot.pdf}
 	\end{figure}
 		
-	\begin{figure}[h]
+	\begin{figure}[h] \label{fig:plot-without-masses}
 		\centering
 		\caption{Without Masses $v^2$ vs sDist plot}
 		\includegraphics[width=6in]{plots/withMassesPlot.pdf}
 	\end{figure}
 		
-	\begin{figure}[h]
+	\begin{figure}[h] \label{fig:plot-with-masses}
 		\centering
 		\caption{With Masses $v^2$ vs sDist plot}
 		\includegraphics[width=6in]{plots/withoutMassesPlot.pdf}
 	\end{figure}
 	
-	\begin{table}[!ht]
+	\begin{table}[!ht] \label{table:without-masses-table}
 		\caption{Data for falling counterweight \textbf{without} mass loads in place}
 		\vspace{.1in}
 		
@@ -377,7 +467,7 @@
 		\end{tabular}
 	\end{table}
 	
-	\begin{table}[!ht]
+	\begin{table}[!ht] \label{table:with-masses-table}
 		\caption{Data for falling counterweight \textbf{without} mass loads in place}
 		\vspace{.1in}
 		
