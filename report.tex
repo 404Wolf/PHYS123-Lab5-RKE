@@ -184,7 +184,7 @@
 		\Delta{s}=0.015\ \text{m} \notag
 	\end{align}
 
-	\subsection{Estimating Moment of Inertia}
+	\subsection{Estimating Moment of Inertia} \label{sect:estimating-moment-of-inertia}
 
 	Before measuring the moment of inertia, we decided to make a rough approximation. To do this, we used two different common models, the moment of inertia of a disc, $\frac{1}{2}Mr^2$, and the moment of inertia of a ring, $Mr^2$. These computations will not be accurate since the actual Rote-Dyne disc is neither a perfect disc nor a hoop. For our rough estimates, we took the radius to be $r$, and the mass to be
 	
@@ -211,7 +211,7 @@
 	
 	\begin{align}
 		I_{\text{est}}&=\frac{I_{\text{disc}} + I_{\text{hoop}}}{2} \notag \\
-		&= 0.072 \pm 0.072\ \iUnit
+		&= 0.072 \pm 0.072\ \iUnit \label{eq:def-i-est}
 	\end{align}
 
 	\subsection{Monte Carlo Simulation}
@@ -316,7 +316,7 @@
 	
 	\section{Analysis}
 	
-	\subsection{Computing $I$}
+	\subsection{Computing $I$ for System w/Masses}
 	
 	\newcommand{\iMass}{I_{\text{mass}}}
 	\newcommand{\slopeMass}{B_{\text{mass}}}
@@ -356,26 +356,94 @@
 		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-for-masses}
 	\end{align}
 
-	We then plugged in the values to solve for $I$ for the system including the load masses. We were not interested in the system without the load masses for computing $I$, and did not make a prediction for that system.
+	\newcommand{\massSlopeUncert}{\delta_B}
+
+	We then plugged in the values to solve for $I$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B$ and its uncertainty, which will henceforth be denoted as $\delta_B$, provided by \origin's linear regression model, and $g$, the generally accepted approximation of near-earth gravity. The more interesting situation, the situation where there are load masses in the \rwheel, is the one we made an estimate and did a Monte Carlo simulation for. We will compute the system without masses for the sake of completion later. 
 	
 	\begin{align}
 		r &= 0.200 \pm 0.002 \ \text{m} \tag{\ref{eq:def-r}} \\
 		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \\
 		\slopeMass &= 0.63436 \pm 0.00104\ \frac{\text{m}}{\text{s}^2} \\
-		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}}
+		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}} \notag \\
+		B = .68204 \pm .00168 \frac{\text{m}}{\text{s}^2}
 	\end{align}
 
 	So,
 	
 	\begin{align}
-		I &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.63436} - 1)
-		&\approx 0.07182914
+		I &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.63436} - 1) \notag \\
+		&\approx 0.07182\ \iUnit
 	\end{align}
 
-	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}
+	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}, only factoring the error on $I$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. 
 	
 	\begin{align}
-		content...
+		\delta_I &= |\frac{\partial}{\partial B} (Mr^2 \cdot (\frac{2g}{B} - 1)) \cdot \delta_B| \notag \\
+		&= |\frac{\partial}{\partial B} (Mr^2 \cdot (2g B^{-1} - 1)) \cdot \delta_B \notag| \notag \\
+		&= 2 M g r^2 \delta_B \cdot |\frac{\partial}{\partial B} (B^{-1} - 1) \cdot \delta_B \notag| \notag \\
+		&= 2 M g r^2 \delta_B \cdot |\frac{-1}{B^2}| \notag \\
+		&= 2 \delta_B \frac{M g r^2}{B^2} \label{eq:delta-i-formula}
+	\end{align}
+	
+	Plugging in values, we get
+	
+	\begin{align}
+		\delta_I = 2 \delta_B \frac{M g r^2}{B^2}
+		&\approx 0.00012\ \iUnit
+	\end{align}
+	
+	So, we can succinctly state
+	
+	\begin{align}
+		I = 0.07182 \pm 0.00012\ \iUnit \label{eq:def-i-measured}
+	\end{align}
+
+	Looking back at our predicted value for $I$ from section \ref{sect:estimating-moment-of-inertia}, we chose an estimate of $I$, denoting it $I_{\text{est}}$. Putting the previously estimated $I$, ``$I_{\text{est}}$'' inline with the measured $I$, ``$I$'', we have
+		
+	\begin{align}
+		I_{\text{est}} &= 0.072 \pm 0.072\ \iUnit \tag{\ref{eq:def-i-est}} \\
+		I &= 0.07182 \pm 0.00012\ \iUnit \tag{\ref{eq:def-i-measured}}
+	\end{align}
+
+	It is obvious that the actual value falls within one to two uncertainty intervals of the estimated value. The more important question, however, is whether the estimated value falls within one to two uncertainty intervals of the actual value. Two uncertainty intervals is
+	
+	\begin{align}
+		\delta_I \cdot 2 \notag \\
+		&= 0.00012 \cdot 2 \notag \\
+		&= 0.00024 \notag
+	\end{align}
+	
+	So, mathematically, we are checking
+	
+	\begin{align}
+		0.07182 &\in \notag \\
+		&\in [0.07182 - 0.00024, 0.07182 + 0.00024] \notag \\
+		&\in [0.07158, 0.07206]
+	\end{align}
+
+	\newcommand{\iSkew}{\Delta{I}_{\text{skew}}}
+
+	Which is true, so our measured indeed value falls within one to two uncertainty intervals from our estimate. To see how off we are, a percentage value also can be computed, $\iSkew$
+	
+	\begin{align}
+		\iSkew &= 100 \cdot (1 - \frac{I}{I_{\text{est}}}) \notag \\
+		&= 100 \cdot (1 - \frac{0.07182}{0.072}) \notag \\
+		&= 100 \cdot (1 - 0.9975) \notag \\
+		&= 25\%
+	\end{align}
+
+	\subsection{Computing $I$ for System w/o Masses}
+	
+	For the sake of completion we compute the value of $I$ using the same equations for $I$, equation \ref{eq:i-for-masses} and $\delta_{I}$, equation \ref{eq:delta-i-formula}. The variable name below will be $I$ too, but for all ``$I$''s in this section please assuming $I$ to be the moment of inertia for the system \textbf{without} masses.
+	
+	For the system without masses, \origin produced the linear regression value
+	
+	\begin{align}
+		B = 
+	\end{align}
+	
+	\begin{align}
+		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2}
 	\end{align}
 	
 	\section{Conclusion}
@@ -400,7 +468,7 @@
 		
 	\begin{figure}[h] \label{fig:plot-without-masses}
 		\centering
-		\caption{Without Masses $v^2$ vs sDist plot}
+		\caption{Masses $v^2$ vs sDist plot}
 		\includegraphics[width=6in]{plots/withMassesPlot.pdf}
 	\end{figure}
 		
