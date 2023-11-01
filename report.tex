@@ -9,6 +9,7 @@
 \newcommand{\origin}{\softwareText{Origin Pro}}
 \newcommand{\iUnit}{\text{kg $\text{m}^2$}}
 \newcommand{\rwheel}{Roto-Dyne wheel}
+\newcommand{\mpssq}{\frac{\text{m}}{\text{s}^2}}
 
 \title{Rotational Kinetic Energy Lab}
 \date{October 31, 2023}
@@ -34,7 +35,7 @@
 	Moment of inertia, often denoted by $I$, is a function of the specific geometry and mass distribution of an object. Moment of inertia is implicitly relative to the axis of rotation. Where $R$ is the distance from the axis of rotation and $M$ is the mass of the object, for a point mass the moment of inertia, $I$, is given by
 	
 	\begin{align}
-		I&=M R^2
+		I&=M R^2 \label{eq:def-i}
 	\end{align}
 
 	The entire moment of inertia can be computed by thinking of a given object as a collection of tiny masses. As the masses' volumes shrink down to some small volume with some proportionately small mass, the can then be eventually said to be the differential $dM$. Integrating all the small point masses across the entire object implies that the entire moment of inertia of an object, $I_{tot}$, is given by
@@ -156,12 +157,12 @@
 
 	\subsection{Taking Measurements}
 	
-	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $d$ from the lab manual, twice the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. We determined $r$ to be half the diameter. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$, whereas for $k$ we measured very carefully and chose the uncertainty to be $0.001 \text{m}$
+	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $r$ from the lab manual, the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. Our measurement for $k$ was originally $0.073$, but we shifted it to $0.173$ because the original value did not make sense given the radius. We believe it was the result of misreading the ruler. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$, whereas for $k$ we measured very carefully and chose the uncertainty to be $0.01 \text{m}$
 	
 	\begin{align}
 		d&=0.200 \pm 0.002\ \text{m} \label{eq:def-d} \\
-		r&=0.100 \pm 0.002\ \text{m} \label{eq:def-r} \\
-		k&=0.073 \pm 0.001\ \text{m} \label{eq:def-k}
+		r&=0.200 \pm 0.002\ \text{m} \label{eq:def-r} \\
+		k&=0.173 \pm 0.01\ \text{m} \label{eq:def-k}
 	\end{align}
 
 	We used a counterweight with a given mass of $0.06\text{kg}$ to provide a torque to spin our \rwheel, as can be seen in figure~\ref{fig:apparatus}. To account for friction, we incrementally added paperclips to the bottom of the counterweight. We continued to add paperclips up until the mass would fall at a constant speed to counteract the force of friction, using \loggerpro~software and an encoded pulley to monitor acceleration and velocity. Let $M_c$ be the mass of the counterweight and $M_p$ be the mass of the paperclips opposing friction, not used in our computations but still important to the experimental design.
@@ -316,26 +317,25 @@
 	
 	\section{Analysis}
 	
-	\subsection{Computing $I$ for w/Masses}
+	\paragraph{Objective}
 	
-	\newcommand{\iMass}{I_{\text{mass}}}
-	\newcommand{\slopeMass}{B_{\text{mass}}}
-	\newcommand{\iWithoutMass}{I_{\text{massless}}}
-	\newcommand{\slopeWithoutMass}{B_{\text{massless}}}
+	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included a Monte Carlo simulation to verify our computation for $I_1$, the moment of the \rwheel including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia. 
 	
-	In analyzing our results, our primary objective was to determine whether our estimate for the moment of inertia of the \rwheel was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope, $\slopeMass$ and $\slopeWithoutMass$, obtained through \origin's provided linear fit line.
+	\subsection{Computing $I_1$ (w/masses)}
 	
-	Using the elementary equation for slope, $m$, with a linear function plotted on an $x$-$y$ graph,
+	The first step towards accomplishing this goal was to determine whether our estimate for the moment of inertia of the \rwheel was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope of the \rwheel with the load masses, $B_1$ and $B_2$, the slope without load masses, obtained through \origin's provided linear fit line.
+	
+	Using the elementary equation for some slope, $m$, with a linear function plotted on an $x$-$y$ graph,
 	
 	\begin{align}
-		m=\frac{\Delta{y}}{\Delta{x}}
+		m &= \frac{\Delta{y}}{\Delta{x}}
 	\end{align}
 
 	We determined that for our vertical axis $v^2$ and horizontal axis $y$,
 	
 	\begin{align}
-		\slopeMass&=\frac{v^2}{y} &
-		\slopeWithoutMass&=\frac{v^2}{y} \label{eq:applied-slope-equations}
+		B_1 &= \frac{v^2}{y} &
+		B_2 &= \frac{v^2}{y} \label{eq:applied-slope-equations}
 	\end{align}
 
 	First, we solved equation \ref{eq:conservation-of-energy-gy-form}~for $v^2$ as a function of $y$
@@ -345,36 +345,39 @@
 		v^2 &= \frac{2gy}{1 + \frac{I}{Mr^2}}
 	\end{align}
 
-	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$
+	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I_1$
 	
 	\begin{align}
-		B &= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \notag \\
-		&= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \cdot \frac{1 + \frac{I}{Mr^2}}{1 + \frac{I}{Mr^2}} \notag \\
-		&= \frac{2g}{(1 + \frac{I}{Mr^2})} \notag \\
-		By\frac{I}{Mr^2} &= 2g - B \notag \\
-		I &= Mr^2 \cdot \frac{2g - B}{B} \notag \\
-		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-for-masses}
+		B_1 &= \frac{\frac{2gy}{1 + \frac{I_1}{Mr^2}}}{y} \notag \\
+		&= \frac{\frac{2gy}{1 + \frac{I_1}{Mr^2}}}{y} \cdot \frac{1 + \frac{I_1}{Mr^2}}{1 + \frac{I_1}{Mr^2}} \notag \\
+		&= \frac{2g}{(1 + \frac{I_1}{Mr^2})} \notag \\
+		By\frac{I_1}{Mr^2} &= 2g - B \notag \\
+		I_1 &= Mr^2 \cdot \frac{2g - B}{B_1} \notag \\
+		I_1 &= Mr^2 \cdot (\frac{2g}{B_1} - 1) \label{eq:i-for-masses}
 	\end{align}
 
 	\newcommand{\massSlopeUncert}{\delta_B}
 
-	We then plugged in the values to solve for $I$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B$ and its uncertainty, which will henceforth be denoted as $\delta_B$, provided by \origin's linear regression model, and $g$, the generally accepted approximation of near-earth gravity. The more interesting situation, the situation where there are load masses in the \rwheel, is the one we made an estimate and did a Monte Carlo simulation for. We will compute the system without masses for the sake of completion later. 
+	\paragraph{Solving for $I_1$}
+	We then plugged in the values to solve for $I_1$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B_1$ and its uncertainty, which will henceforth be denoted as $\delta_B$, provided by \origin's linear regression model, and $g$, the generally accepted approximation of near-earth gravity. The more interesting situation, the situation where there are load masses in the \rwheel, is the one we made an estimate and did a Monte Carlo simulation for. We will compute the system without masses for the sake of completion later. 
 	
 	\begin{align}
 		r &= 0.200 \pm 0.002 \ \text{m} \tag{\ref{eq:def-r}} \\
-		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \\
+		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \label{eq:def-g} \\
 		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}} \notag \\
-		B &= 0.68204 \pm 0.00168 \frac{\text{m}}{\text{s}^2}
+		B_1 &= 0.68204 \pm 0.00168\ \mpssq \label{eq:def-b1}
 	\end{align}
 
 	So,
 	
 	\begin{align}
-		I &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.68204} - 1) \notag \\
+		I_1 &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.68204} - 1) \notag \\
 		&\approx 0.06663\ \iUnit
 	\end{align}
 
-	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}, only factoring the error on $I$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. 
+	\paragraph{Computing Error}
+	
+	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later.
 	
 	\begin{align}
 		\delta_I &= |\frac{\partial}{\partial B} (Mr^2 \cdot (\frac{2g}{B} - 1)) \cdot \delta_B| \notag \\
@@ -394,20 +397,20 @@
 	So, we can succinctly state
 	
 	\begin{align}
-		I = 0.06663 \pm 0.00017\ \iUnit \label{eq:def-i-measured}
+		I_1 = 0.06663 \pm 0.00017\ \iUnit \label{eq:def-i-measured}
 	\end{align}
 
-	Looking back at our predicted value for $I$ from section \ref{sect:estimating-moment-of-inertia}, we chose an estimate of $I$, denoting it $I_{\text{est}}$. Putting the previously estimated $I$, ``$I_{\text{est}}$'' inline with the measured $I$, ``$I$'', we have
+	Looking back at our predicted value for $I_1$ from section \ref{sect:estimating-moment-of-inertia}, we chose an estimate of $I$, denoting it $I_{\text{est}}$. Putting the previously estimated $I_1$, ``$I_{1, \text{est}}$'' inline with the measured $I_1$, ``$I_1$'', we have
 		
 	\begin{align}
-		I_{\text{est}} &= 0.072 \pm 0.072\ \iUnit \tag{\ref{eq:def-i-est}} \\
-		I &= 0.06663 \pm 0.00017\ \iUnit \tag{\ref{eq:def-i-measured}}
+		I_{1, \text{est}} &= 0.072 \pm 0.072\ \iUnit \tag{\ref{eq:def-i-est}} \\
+		I_1 &= 0.06663 \pm 0.00017\ \iUnit \tag{\ref{eq:def-i-measured}}
 	\end{align}
 
 	It is obvious that the actual value falls within one to two uncertainty intervals of the estimated value. The more important question, however, is whether the estimated value falls within one to two uncertainty intervals of the actual value. Two uncertainty intervals is
 	
 	\begin{align}
-		\delta_I \cdot 2 \notag \\
+		\delta_{I_1} \cdot 2 \notag \\
 		&= 0.00017 \cdot 2 \notag \\
 		&= 0.00034 \notag
 	\end{align}
@@ -415,7 +418,7 @@
 	So, mathematically, we are checking
 	
 	\begin{align}
-		0.07182 &\in \notag \\
+		0.07182 &\notin \notag \\
 		&\notin [0.07182 - 0.00034, 0.07182 + 0.00034] \notag \\
 		&\notin [0.07148, 0.07216]
 	\end{align}
@@ -425,24 +428,26 @@
 	Which is false, so our measured indeed value \textbf{does not} fall within one to two uncertainty intervals from our estimate. To see how off we are, a percentage value also can be computed, $\iSkew$
 	
 	\begin{align}
-		\iSkew &= 100 \cdot (1 - \frac{I}{I_{\text{est}}}) \notag \\
+		\iSkew &= 100 \cdot (1 - \frac{I_1}{I_{1, \text{est}}}) \notag \\
 		&\approx 100 \cdot (1 - \frac{0.06663}{0.072}) \notag \\
 		&= 100 \cdot (1 - 0.92541) \notag \\
 		&= 7.45\%
 	\end{align}
 
-	\subsection{Computing $I$ for w/o Masses}
+	\subsection{Computing $I_2$ (w/o masses)}
 	
-	For the sake of completion we compute the value of $I$ using the same equations for $I$, equation \ref{eq:i-for-masses} and $\delta_{I}$, equation \ref{eq:delta-i-formula}. The variable name below will be $I$ too, but for all ``$I$''s in this section please assuming $I$ to be the moment of inertia for the system \textbf{without} masses.
+	\paragraph{Solving for $I_2$}
+	
+	Next we compute the value of $I_2$, the moment of inertia of the \rwheel without mass loads, using the same equations for $I_1$, equation \ref{eq:i-for-masses} and for $\delta_{I_2}$, equation \ref{eq:delta-i-formula}.
 	
 	For the system without masses, \origin~produced the linear regression value
 	
 	\begin{align}
-		B = 1.26494 \pm 0.00889 \frac{\text{m}}{\text{s}^2}
+		B_2 = 1.26494 \pm 0.00889\ \mpssq \label{eq:def-b2}
 	\end{align}
 	
 	\begin{align}
-		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
+		I_2 &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
 		&= (0.0600)(0.200)^2 \cdot (\frac{2(9.81)}{(1.26494)} - 1) \notag \\
 		&\pm 2 (0.00889) \frac{(0.0600) (9.81) (0.200)^2}{(1.26494)^2} \notag
 	\end{align}
@@ -450,29 +455,102 @@
 	Which evaluates to
 	
 	\begin{align}
-		I &= 0.03482 \pm .00026\ \iUnit
+		I_2 &= 0.03482 \pm .00026\ \iUnit
 	\end{align}
 
 	for the massless system. It makes intuitive sense that the moment of inertia is lesser. Inertia is a measure of all the infinite infinitesimally small point masses of an object. There are less masses in the system without mass loads, so the moment of inertia indeed should be notably lesser.
 	
-	\subsection{Mass Load $I$}
+	\subsection{Computing $I_E$ (mass loads)}
 	
-	Knowing the experimental moment of inertia for the system with the mass loads and the system without the mass loads, we can compute $I_L$, the moment of inertia of the system only with the mass loads, by subtracting the moment of inertia of the system with the mass loads by the system without the mass loads. For this section, we will rename $I$ for the masses system $I_1$ and $I$ for the no masses system $I_2$
+	We are now very close to being able to find $I_E$, the moment of just the mass loads. Knowing the experimental moment of inertia for the system with the mass loads and the system without the mass loads, we can compute $I_E$ by subtracting the moment of inertia of the system with the mass loads by the system without the mass loads.
 	
 	\begin{align}
-		I_L &= I_1 - I_2 \notag \\
+		I_E &= I_1 - I_2 \label{eq:mass-load-i-only} \\
 		&= 0.06663 - 0.03482 \notag \\
 		&= 0.03181\ \iUnit
 	\end{align}
 	
-	We will base the uncertainty of this measurement on the literal, complete equation, subbing in $I$s for equation \ref{eq:i-for-masses}. We will also denote $B$ for the system with masses here as $B_1$ and $B$ for the system without masses as $B_2$.
+	We will base the uncertainty of this measurement on the literal, complete equation, subbing $I$ into equation~\ref{eq:mass-load-i-only} for equation \ref{eq:i-for-masses}.
 	
 	\begin{align}
-		Mr^2 \cdot (\frac{2g}{B_1} - 1) - Mr^2 \cdot (\frac{2g}{B_2} - 1)
+		I_E &= I_1 - I_2 \tag{\ref{eq:mass-load-i-only}} \\
+		&= M r^2 \cdot (\frac{2g}{B_1} - 1) - Mr^2 \cdot (\frac{2g}{B_2} - 1) \notag \\
+		&= M r^2 ((\frac{2g}{B_1} - 1) - (\frac{2g}{B_2} - 1)) \notag \\
+		&= M r^2 \frac{2g(B_2 - B_1)}{B_1 B_2}
+	\end{align}
+
+	Writing the equation like this does not help us solve for $I_E$, in fact if anything it makes it more convoluted. Rather, the purpose of this literal expression is to allow us to compute an uncertainty based on the values that it is based on. We believe that $\delta_{I_E, M}$ and $\delta_{I_E, g}$ are negligible in comparison to $\delta_{I_E, r}$, $\delta_{I_E, B_1}$, and $\delta_{I_E, B_2}$, since, besides the fact that the actual value for $\delta_M$ is $0.0001 \text{kg}$, $r$ is squared which makes its uncertainty even more significant. To start, we recall
+	
+	\begin{align}
+		B_1 &= 0.68204 \pm 0.00168\ \mpssq \tag{\ref{eq:def-b1}} \\
+		B_2 &= 1.26494 \pm 0.00889\ \mpssq \tag{\ref{eq:def-b2}} \\
+		r &= 0.200 \pm 0.002\ \text{m} \tag{\ref{eq:def-r}} \\
+		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}} \notag \\
+		g &= 9.81 \pm 0.01 \frac{m}{\text{s}^2} \tag{\ref{eq:def-g}}
+	\end{align}
+	
+	To compute the overall uncertainty $\delta_{I_E}$, we will first compute $\delta_{I_E, r}$ using the derivative method, and $\delta_{I_E, B_1}$, and $\delta_{I_E, B_2}$ using the computational method, and then will add all the uncertainties in quadrature.
+	
+	\begin{align}
+		\delta_{I_E, r} &= |\frac{\partial}{\partial r}(M r^2 \frac{2g(B_2 - B_1)}{B_1 B_2}) \cdot \delta_r| \notag \\
+		&= |2r M \frac{2g(B_2 - B_1)}{B_1 B_2} \cdot \delta_r| \notag \\
+		&= 0.00063\ \iUnit
+	\end{align}
+
+	\begin{align}
+		\delta_{I_E, B_2} &= |M r^2 \frac{2g(B_2 - B_1)}{B_1 B_2} - \notag \\
+		&M r^2 \frac{2g((B_2 + \delta_{B_2}) - B_1)}{B_1 (B_2 + \delta_{B_2})}| \notag \\
+		&\approx 0.00026\ \iUnit
+	\end{align}
+
+	\begin{align}
+		\delta_{I_E, B_1} &= |M r^2 \frac{2g(B_2 - B_1)}{B_1 B_2} - \notag \\
+		&M r^2 \frac{2g((B_1 + \delta_{B_1}) - B_1)}{(B_1 + \delta_{B_1}) B_2}| \notag \\
+		&\approx 0.00017\ \iUnit
+	\end{align}
+
+	So, to find the overall uncertainty we add in quadrature, getting
+	
+	\begin{align}
+		\delta_{I_E} &= \\
+		&= \sqrt{\delta_{I_E, r}^2 + \delta_{I_E, B_1}^2 + \delta_{I_E, B_2}^2} \notag \\
+		&= \sqrt{0.00063^2 + 0.00026^2 + 0.00017^2} \notag \\
+		&= 0.00070\ \iUnit
+	\end{align}
+
+	\subsubsection{Estimating $I_E$}
+	
+	Now, like how we came up with an approximate value for the \rwheel with masses and loads by approximating it to be a disc and a ring and averaging the two, we wanted to come up with a estimate in similar fashion for $I_E$. To do this, we treated the four loads $M_L$, of $0.225 \pm 0.002 \text{kg}$ each, as point masses for computing an estimate for $I_E$. To do this, we applied equation \ref{eq:def-i} to all 4 point masses.
+	
+	\begin{align}
+		I_{\text{est}, E} &= \sum{M r^2} \notag \\
+		&= 4 (M_L r^2) \notag \\
+		&= 4 (0.225 0.1^2) \notag \\
+		&= 0.009
+	\end{align}
+	
+	Computing $\delta_{I_{\text{est}, E}}$ is fairly trivial, requiring us to propagate $\delta_r$ and $\delta_{M_L}$'s effect on $\delta_{I_{\text{est}, E}}$ and then sum in quadrature. For this we used the derivative method.
+	
+	\begin{align}
+		\delta_{I_{\text{est}, E}, r} \notag \\
+		&= |\frac{\partial}{\partial r} (4 (M_L r^2)) \cdot \delta_r| \notag \\
+		&= |8 M_L r \delta_r|
+		&= |8 \cdot 0.225 \cdot 0.1 \cdot 0.002| \notag \\
+		&= 0.00036
 	\end{align}
 	
 	\begin{align}
-		\delta_{M_L} = 0.002\ \text{kg} \tag{\ref{eq:def-ml}}
+		\delta_{I_{\text{est}, E}, M_L} \notag \\
+		&= |\frac{\partial}{\partial M_L} (4 (M_L r^2)) \cdot \delta_{M_L}| \notag \\
+		&= |4 r^2 \delta_{M_L}| \notag \\
+		&= |4 \cdot 0.1^2 \cdot 0.002| \notag \\
+		&= 0.00008
+	\end{align}
+	
+	Adding the uncertainties $\delta_{I_{\text{est}, E}, M_L}$ and $\delta_{I_{\text{est}, E}, r}$ in quadrature we get
+	
+	\begin{align}
+		\sqrt{\delta_{I_{\text{est}, E}, r}}
 	\end{align}
 	
 	\section{Conclusion}
@@ -489,25 +567,29 @@
 	
 	\section{Appendix} \label{sect:appendix}
 		
-	\begin{figure}[h] \label{fig:monte-carlo-simulation}
+	\begin{figure}[h]
+		\label{fig:monte-carlo-simulation}
 		\centering
 		\caption{Monte Carlo Simulation of Rotational Kinetic Energy Experiment plot}
 		\includegraphics[width=6in]{plots/monteCarloPlot.pdf}
 	\end{figure}
 		
-	\begin{figure}[h] \label{fig:plot-without-masses}
+	\begin{figure}[h]
+		\label{fig:plot-without-masses}
 		\centering
 		\caption{Masses $v^2$ vs sDist plot}
 		\includegraphics[width=6in]{plots/withMassesPlot.pdf}
 	\end{figure}
 		
-	\begin{figure}[h] \label{fig:plot-with-masses}
+	\begin{figure}[h] 
+		\label{fig:plot-with-masses}
 		\centering
 		\caption{With Masses $v^2$ vs sDist plot}
 		\includegraphics[width=6in]{plots/withoutMassesPlot.pdf}
 	\end{figure}
 	
-	\begin{table}[!ht] \label{table:without-masses-table}
+	\begin{table}[!ht]
+		\label{table:without-masses-table}
 		\caption{Data for falling counterweight \textbf{without} mass loads in place}
 		\vspace{.1in}
 		
