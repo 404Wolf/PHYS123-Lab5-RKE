@@ -1,8 +1,11 @@
 \documentclass[coverpage]{article}
+
+\usepackage[affil-it]{authblk}
 \usepackage[margin=1in]{geometry}
 \usepackage{pdfpages}
 \usepackage{subcaption}
 \usepackage{amsmath}
+\usepackage{url}
 \usepackage{fancyhdr}
 	\fancyfoot{}
 	\lhead{Mermelstein, \thepage}
@@ -18,6 +21,7 @@
 \title{Rotational Kinetic Energy Lab}
 \date{October 31, 2023}
 \author{Wolf S. Mermelstein}
+\affil{Department of Physics, Case Western Reserve University, Cleveland, Ohio, 44106-7079}
 
 \begin{document}
 	\includepdf{reportCover.pdf}
@@ -25,7 +29,7 @@
 	\maketitle
 	
 	\begin{abstract}
-		Our experiment studied the law of conservation of rotational momentum by using it to experimentally determine the moment of inertia of a \rwheel. We attempted to guess a reasonable value based on similar shapes, such as a disc and ring, and then performed a Monte Carlo simulation to apply some degree of uncertainty to our estimate. The Monte Carlo simulation estimate for $I$, which we call $I_M$, was $0.07182 \pm 0.00104\ \iUnit$. We then experimentally measured the moment of inertia for the system, and determined that $I$, which we called $I_1$ for the given system, was $0.06663 \pm 0.00017 \iUnit$. Using this information we then attempted to find the specific moment of inertia for load masses discluding the \rwheel. To do this we also experimentally measured the moment of inertia of the \rwheel~without the masses to be $0.03482 \pm 0.00026\ \iUnit$, and then subtracted $I_2$ from $I_1$ to get $0.03181 \pm 0.00070$, which we denoted as $I_E$.
+		Our experiment studied the law of conservation of energy by using it to experimentally determine the moment of inertia of a \rwheel. We attempted to guess a reasonable value based on similar shapes, such as a disc and ring, and then performed a Monte Carlo simulation to apply some degree of uncertainty to our estimate. The Monte Carlo simulation estimate for $I$, which we call $I_M$, was $0.07182 \pm 0.00104\ \iUnit$. We then experimentally measured the moment of inertia for the system, and determined that $I$, which we called $I_1$ for the given system, was $0.06663 \pm 0.00017 \iUnit$. Using this information we finally attempted to find the specific moment of inertia for load masses discluding the \rwheel. To do this we also experimentally measured the moment of inertia of the \rwheel~without the masses to be $0.03482 \pm 0.00026\ \iUnit$, and then subtracted $I_2$ from $I_1$ to get $0.03181 \pm 0.00070$, which we denoted as $I_E$. We found that predicting moments of inertia using different simple, known approximations, such as discs, hoops, and point masses, prove to be wildly varying in accuracy. Additionally, our analysis produces various reusable useful equations to quickly compute moments of inertia for arbitrary nonuniform systems.
 	\end{abstract}
 	
 	\tableofcontents
@@ -33,6 +37,8 @@
 	\twocolumn
 	
 	\section{Introduction}
+	
+	Background information, including that about moment of inertia and conservation of energy, has been largely adapted from source \cite{labManual}, but has been rephrased and modified notably.
 	
 	\subsection{Moment of Inertia}
 	
@@ -42,14 +48,14 @@
 		I&=M R^2 \label{eq:def-i}
 	\end{align}
 
-	The entire moment of inertia can be computed by thinking of a given object as a collection of tiny masses. As the masses' volumes shrink down to some small volume with some proportionately small mass, the can then be eventually said to be the differential $dM$. Integrating all the small point masses across the entire object implies that the entire moment of inertia of an object, $I_{tot}$, is given by
+	The entire moment of inertia of an object can be computed by thinking of it as a collection of tiny masses. As the masses' volumes shrink down to some small volume with some proportionately small mass, the can then be eventually said to be the differential $dM$. Integrating all the small point masses across the entire object implies that the entire moment of inertia of an object, $I_{tot}$, is given by
 	
 	\begin{align}
 		I=\sum_{k=1}^{\infty}{\frac{m}{k}R^2}\\
 		=\int{R^2dM}
 	\end{align}
 
-	This is conceptually helpful in understanding moment of inertia for arbitrary shapes, but is not practically useful for non simple (i.e. circles, squares, collections of discreet point masses) shapes, such as the mass-loaded, spoked wheel that we used in our experiment. As a result of such, it is often helpful to actually measure moment of inertia instead of attempting to compute it.
+	This is conceptually helpful in understanding moment of inertia for arbitrary shapes, but is not practically useful for shapes that are not simple (i.e. circles, squares, collections of discreet point masses), such as the mass-loaded, spoked wheel that we used in our experiment, or those that have nonuniform mass distribution. As a result of such, it is often helpful to actually measure moment of inertia instead of attempting to compute it.
 	
 	\subsection{Conservation of Energy}
 	
@@ -83,7 +89,7 @@
 
 	where $I$ is defined to be the moment of inertia about the axis of rotation.
 	
-	For the mass in figure \ref{fig:apparatus}~descends downwards due to gravity, it begins to lose its gravitational potential energy, $U_W$. The total energy of the system is internally conserved, however a small amount of energy is lost due to friction. So, where $\Delta{U}_W$ is the change in the gravitational potential energy of the counterweight, $K_T$ is the translational kinetic energy of the counterweight, and $K_R$ is the rotational kinetic energy of the counterweight, we state that
+	As the mass in figure \ref{fig:apparatus}~descends downwards due to gravity, it begins to lose its gravitational potential energy, $U_W$. The total energy of the system is internally conserved, however a small amount of energy is lost due to friction. So, where $\Delta{U}_W$ is the change in the gravitational potential energy of the counterweight, $K_T$ is the translational kinetic energy of the counterweight, and $K_R$ is the rotational kinetic energy of the counterweight, we state that
 	
 	\begin{align}
 		\Delta{U}_W + K_T + K_R&=W_f
@@ -97,7 +103,7 @@
 
 	$\Delta{U}_W$ should be negative, and $K_T$ \& $K_R$ positive because the mass is falling, and, thus, losing gravitational kinetic energy, whilst simultaneously proportionately gaining kinetic energy.
 	
-	Using the fact that gravitational potential energy for an object at height $h$ of mass $m$ in an environment where gravity can be approximated to $g$ is given to be
+	Using the fact that gravitational potential energy for an object at height $h$ of mass $m$, in an environment where gravity can be approximated to some constant $g$, is given to be
 	
 	\begin{align}
 		U_G&=(M \cdot g \cdot h)
@@ -108,7 +114,7 @@
 	\newcommand{\mgy}{(M \cdot g \cdot y)}
 	
 	\begin{align}
-		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=W_f \label{eq:total-energy-with-friction}
+		W_f &= -\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2) \label{eq:total-energy-with-friction}
 	\end{align}
 	
 	\subsection{Working Equation}
@@ -119,7 +125,7 @@
 		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=0
 	\end{align}
 	
-	Carefully noting that we have discluded the energy of the moving paperclips, as it is negligible in comparison to the other energies of the system. And, to further simplify things, we will define $y$ to be vertically positive, so as to make the equation into
+	Here we must note that we have discluded the energy of the moving paperclips, as it is negligible in comparison to the other energies of the system. To further simplify things, we will define $y$ to be vertically positive, so as to make the equation into
 	
 	\begin{align}
 		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I \omega^2)&=0
@@ -129,7 +135,7 @@
 	
 	\begin{align}
 		-\mgy + (\frac{1}{2} M v^2) + (\frac{1}{2} I (\frac{v}{r})^2)&=0 \notag \\
-		&=\frac{1}{2} \cdot v^2 \cdot (M + \frac{I}{r^2})
+		&=\frac{1}{2} v^2 \cdot (M + \frac{I}{r^2})
 	\end{align}
 
 	Or, as will be used later for our computations, the equivalent equation in the form
@@ -138,7 +144,7 @@
 		gy = \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \label{eq:conservation-of-energy-gy-form}
 	\end{align}
 	
-	$v$ is a value that is determined by our \loggerpro~software. It is computed with an advanced proprietary algorithm, but is similar to
+	Where $v$ is a value that is determined by the \loggerpro~software that we used. It is computed with an advanced proprietary algorithm, but is similar to
 	
 	\begin{align}
 		v \approx \frac{\Delta{s}}{\Delta{T}} \label{eq:delta-s-delta-t}
@@ -153,22 +159,24 @@
 	\end{figure}
 
 	\begin{figure}
+		\caption{\rwheel~Inertia Wheel Apparatus
 		\label{fig:apparatus}
-		\caption{\rwheel~Inertia Wheel Apparatus \cite{labManual}}
+		\cite{labManual}}
 		\centering
 		\includegraphics[width=2in]{graphics/apparatus.png}
 	\end{figure}
 
 	\subsection{Taking Measurements}
 	
-	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $r$ from the lab manual, the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. Our measurement for $k$ was originally $0.073$, but we shifted it to $0.173$ because the original value did not make sense given the radius. We believe it was the result of misreading the ruler. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$, whereas for $k$ we measured very carefully and chose the uncertainty to be $0.01 \text{m}$
+	\paragraph{Preliminary Measurements}
+	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $r$ from the lab manual, the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. Our measurement for $k$ was originally $0.073$, but we shifted it to $0.173$ because the original value did not make sense given the radius. After careful deliberations we are very certain it was the result of misreading the ruler, but have used a fairly large uncertainty interval for $k$, $0.01 \text{m}$, as a result of this. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$.
 	
 	\begin{align}
 		r&=0.200 \pm 0.002\ \text{m} \label{eq:def-r} \\
 		k&=0.173 \pm 0.01\ \text{m} \label{eq:def-k}
 	\end{align}
 
-	We used a counterweight with a given mass of $0.06\text{kg}$ to provide a torque to spin our \rwheel, as can be seen in figure~\ref{fig:apparatus}. To account for friction, we incrementally added paperclips to the bottom of the counterweight. We continued to add paperclips up until the mass would fall at a constant speed to counteract the force of friction, using \loggerpro~software and an encoded pulley to monitor acceleration and velocity. Let $M_c$ be the mass of the counterweight and $M_p$ be the mass of the paperclips opposing friction, not used in our computations but still important to the experimental design.
+	We used a counterweight with a given mass of $0.06\text{kg}$ to provide a torque to spin our \rwheel, as can be seen in figure~\ref{fig:apparatus}. To account for friction, we incrementally added paperclips to the bottom of the counterweight. We continued to add paperclips up until the mass would fall at a constant speed to counteract the force of friction, using \loggerpro~software and an encoded pulley to monitor acceleration and velocity during this process. Let $M_c$ be the mass of the counterweight and $M_p$ be the mass of the paperclips opposing friction, not used in our computations but still important to the experimental design and recorded below.
 	
 	\begin{align}
 		M_p&=0.0015 \pm 0.0001\ \text{kg} \label{eq:def-mp} \\
@@ -185,12 +193,12 @@
 	For the encoded pulley that we used to measure velocity and length of unrolled string it was given that the gaps between intervals of measurement, $\Delta{s}$, was
 	
 	\begin{align}
-		\Delta{s}=0.015\ \text{m} \notag
+		\Delta{s}=0.015\ \text{m}
 	\end{align}
 
-	\subsection{Estimating Moment of Inertia} \label{sect:estimating-moment-of-inertia}
+	\subsection{Rough Estimation of $I_1$} \label{sect:estimating-moment-of-inertia}
 
-	Before measuring the moment of inertia, we decided to make a rough approximation. To do this, we used two different common models, the moment of inertia of a disc, $\frac{1}{2}Mr^2$, and the moment of inertia of a ring, $Mr^2$. These computations will not be accurate since the actual Rote-Dyne disc is neither a perfect disc nor a hoop. For our rough estimates, we took the radius to be $r$, and the mass to be
+	Before measuring the moment of inertia, we decided to make a rough approximation. To do this, we used two different formulas from common models for moments of inertia, the moment of inertia of a disc, $\frac{1}{2}Mr^2$, and the moment of inertia of a ring, $Mr^2$. These computations will not be accurate since the actual Rote-Dyne disc is neither a perfect disc nor a hoop, and it does not have uniform density even if it were. For our rough estimates, we took the radius to be $r$, and the mass to be
 	
 	\begin{align}
 		M_{tot}&=M_R + 4 M_L \notag \\
@@ -211,7 +219,7 @@
 		&= 0.096\ \iUnit
 	\end{align}
 
-	To determine an overall estimate, $I_{\text{est}}$, we averaged $I_{\text{disc}}$ and $I_{\text{hoop}}$, and then set the uncertainty to be that average. Assuming that the wheel is a hoop is an under-estimate, and assuming that the wheel is a disc is an over-estimate, so the actual moment of inertia should be somewhere between the two.
+	To determine an overall estimate, $I_{\text{est}}$, we averaged $I_{\text{disc}}$ and $I_{\text{hoop}}$, and then set the uncertainty to be that average. Assuming that the wheel is a hoop is an under-estimate, and assuming that the wheel is a disc is an over-estimate, the actual moment of inertia should be somewhere between the two.
 	
 	\begin{align}
 		I_{\text{est}}&=\frac{I_{\text{disc}} + I_{\text{hoop}}}{2} \notag \\
@@ -220,7 +228,7 @@
 
 	\subsection{Monte Carlo Simulation}
 	
-	Before actually measuring the moment of inertia, we performed a Monte Carlo Simulation using our estimated $I$ so that we could compare a graph of data of the estimated value to a graph of data for the actual value later on.
+	Before actually measuring the moment of inertia, we performed a Monte Carlo Simulation using our estimated $I$ so that we could compare a graph of data of the estimated value to a graph of data for the actual value later on. This simulation involves pretending that our estimated value for $I_1$, $I_{1, \text{est}}$, is the value for $I_1$, and then artificially inducing uncertainty with simulated randomness.
 	
 	To perform this simulation, we began by creating a new \origin~document, and arranged a table including a column for $\Delta{s}$, the overall displacement (vertical distance it has fallen) of the string, and $\Delta{T_0}$, the time elapsed since dropping the counterweight to arrive at that overall displacement. The values for $\Delta{s}$ were computed using the equation
 	
@@ -238,11 +246,11 @@
 		v&=\sqrt{\frac{\frac{1}{2}(1 + \frac{I}{Mr^2})}{gy}} \label{eq:equation-for-v}
 	\end{align}
 	
-	Next we solved equation \ref{eq:delta-s-delta-t} for t. For our use case here, we will allow $\Delta{T}$ to be $\Delta{T_0}$.
+	Next we solved equation \ref{eq:delta-s-delta-t} for t. For our use case here, we will allow $\Delta{T}$ to be $\Delta{T_0}$. $\Delta{T_0}$ is simply the amount of time elapsed since dropping the counterweight (or, in this case, since the start of the point at which a counterweight would have been dropped, since this is a simulation).
 	
 	\begin{align}
-		v&\approx \frac{\Delta{s}}{\Delta{T}} \notag \\
-		\Delta{T}&= \frac{\Delta{s}}{v} \notag \\
+		v&\approx \frac{\Delta{s}}{\Delta{T}} \tag{\ref{eq:delta-s-delta-t}} \\
+		\Delta{T}&\approx \frac{\Delta{s}}{v} \notag \\
 		\Delta{T_0}&= \frac{\Delta{s}}{v} \label{eq:equation-for-delta-t-0}
 	\end{align}
 	
@@ -256,7 +264,7 @@
 		\Delta{T_0}&= \Delta{S} \sqrt{\frac{(1 + \frac{I}{M r^2})}{2gy}}
 	\end{align}
 
-	With a simple script we had \origin~apply this equation to each row, utilizing that respective row's $\Delta{s}$ value. Now, since this data is purely based on an estimated moment of inertia value, we applied Monte Carlo randomization. To do this, we shifted each $\Delta{T0_i}$ by some $\Delta{T0_Gi}$ obtained from a Gaussian distribution $G$ with the given mean $0$ and $\sigma$ equal to the estimated uncertainty for $\Delta{t}$, $\delta_{\Delta{t}}$, which was given to be $0.0002 \text{s}$, resulting with a column with values for $\delta{t_R}$. This can be expressed formulaically as
+	With a simple script we had \origin~apply this equation to each row, utilizing that respective row's $\Delta{s}$ value. Now, since this data is purely based on an estimated moment of inertia value, we applied Monte Carlo randomization. To do this, we shifted each $\Delta{T0_i}$ by some $\Delta{T0_Gi}$ obtained from a Gaussian distribution $G$ with the given mean $0$ and $\sigma$ equal to the estimated uncertainty for $\Delta{t}$, $\delta_{\Delta{t}}$, which was given to be $0.0002 \text{s}$, resulting with a column with values for $\delta{t_R}$. This process can be expressed formulaically as
 	
 	\begin{align}
 		\delta{T_R} = \Delta{T0} + \Delta{t} \cdot \text{grnd}()
@@ -266,7 +274,7 @@
 
 	\begin{table}[h]
 		\centering
-		\caption{Samples of random Monte Carlo data generation. The seed used was $1016$.}
+		\caption{Samples of random Monte Carlo data generation with seed \texttt{1016}.}
 		\begin{tabular}{c|c}
 			trial \# & s \\ \hline
 			1 & 0.15409 \\
@@ -285,6 +293,20 @@
 	\end{table}
 	
 	\section{Results}
+	
+	\begin{figure}[h]
+		\centering
+		\caption{Monte Carlo Simulation of Rotational Kinetic Energy Experiment plot}
+		\label{fig:monte-carlo-simulation}
+		\includegraphics[width=.5\textwidth]{plots/monteCarloPlot.pdf}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\caption{Masses $v^2$ vs sDist plot}
+		\label{fig:plot-without-masses}
+		\includegraphics[width=.5\textwidth]{plots/withMassesPlot.pdf}
+	\end{figure}
 	
 	\subsection{Plotting Data}
 	
@@ -322,23 +344,31 @@
 	
 	\paragraph{Objective}
 	
-	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included a Monte Carlo simulation to verify our computation for $I_1$, the moment of the \rwheel~including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia. 
+	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included the previously discussed Monte Carlo simulation process to verify our computation for $I_1$, the moment of the \rwheel~including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia for point masses.
 	
 	\subsection{Computing $I_M$ (Monte Carlo)}
 	
-	Before examining our experimental values we decided to compute the moment of inertia resultant from our Monte Carlo system. The idea behind this is that for the Monte Carlo system we used our estimated value for $I$, ran a simulation, and applied a randomized skew to the data.
+	Before examining our experimental values we decided to compute the moment of inertia resultant from our Monte Carlo system. The idea behind this is that for the Monte Carlo system we used our estimated value for $I$, ran a simulation, and applied a randomized skew to the data, so that when computing $I_1$, the moment of inertia for the system with masses, we would have a point of value to compare to.
 	
-	In order to find $I$ we first needed to find an equation for it. To begin, using the elementary equation for some slope, $m$, with a linear function plotted on an $x$-$y$ graph,
+	In order to find $I_M$ we first needed to find an equation for it. To begin, using the elementary equation for some slope $y^\prime$ of a linear function plotted on an $x$-$y$ graph, it is well known that
 	
 	\begin{align}
-		m &= \frac{\Delta{y}}{\Delta{x}}
+		y^\prime &= \frac{x_2 - x_1}{y_2 - y_1} \notag \\
+		&= \frac{\Delta{y}}{\Delta{x}}
 	\end{align}
 	
 	We determined that for our vertical axis $v^2$ and horizontal axis $y$,
 	
 	\begin{align}
-		B_1 &= \frac{v^2}{y} &
-		B_2 &= \frac{v^2}{y} \label{eq:applied-slope-equations}
+		B &= \frac{v^2}{y} \label{eq:applied-slope-equations}
+	\end{align}
+
+	Also, we note here that the unit for $B$ is $\mpssq$ because, when $v=1$ \& $y=1$
+	
+	\begin{align}
+		B &= \frac{v^2}{y} \notag \\
+		&= \frac{\frac{\text{m}}{\text{s}}^2}{m} \notag \\
+		&= \mpssq
 	\end{align}
 	
 	First, we solved equation \ref{eq:conservation-of-energy-gy-form}~for $v^2$ as a function of $y$
@@ -348,20 +378,25 @@
 		v^2 &= \frac{2gy}{1 + \frac{I}{Mr^2}}
 	\end{align}
 	
-	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$
+	\paragraph{General equation for $I$}
+	
+	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$. This equation will be useful shortly, as once we have a general equation for $I$ in terms of $M$, $r$, $g$, and $y$, and a complementary uncertainty equation, we can easily compute moment of inertias for all of our systems.
 	
 	\begin{align}
 		B &= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \notag \\
 		&= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \cdot \frac{1 + \frac{I}{Mr^2}}{1 + \frac{I}{Mr^2}} \notag \\
-		&= \frac{2g}{(1 + \frac{I}{Mr^2})} \notag \\
+		&= \frac{2g}{(1 + \frac{I}{Mr^2})}
+	\end{align}
+
+	\begin{align}
 		By\frac{I}{Mr^2} &= 2g - B \notag \\
 		I &= Mr^2 \cdot \frac{2g - B}{B} \notag \\
 		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-equation}
 	\end{align}
 
-	\paragraph{Computing Error}
+	\paragraph{General equation for $\delta_I$}
 	
-	To compute the error, we applied the derivative method to equation \ref{eq:i-equation}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later.
+	To compute the error, we applied the derivative method to equation \ref{eq:i-equation}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later, but not for $I_1$ and $I_2$.
 	
 	\begin{align}
 		\delta_I &= |\frac{\partial}{\partial B} (Mr^2 \cdot (\frac{2g}{B} - 1)) \cdot \delta_B| \notag \\
@@ -376,7 +411,7 @@
 	For the Monte Carlo system, according to our \origin~linear regression model,
 	
 	\begin{align}
-		B_M &= 0.63436 \pm 0.00889\ \mpssq \\
+		B_M &= 0.63436 \pm 0.00889\ \mpssq
 	\end{align}
 	
 	We will also henceforth use the generally accepted near-earth gravitational acceleration constant value
@@ -418,7 +453,7 @@
 	Looking back at our Monte Carlo value for $I$, $I_M$ and placing it inline with our measured value, we have
 		
 	\begin{align}
-		I_M &= 0.07182 \pm 0.00104\ \mpssq \iUnit \notag \\
+		I_M &= 0.07182 \pm 0.00104\ \iUnit \notag \\
 		I_1 &= 0.06663 \pm 0.00017\ \iUnit \tag{\ref{eq:def-i-measured}}
 	\end{align}
 
@@ -440,7 +475,7 @@
 
 	\newcommand{\iSkew}{\Delta{I}_{\text{skew}}}
 
-	Which is false, so our measured indeed value \textbf{does not} fall within one to two uncertainty intervals from our estimate.
+	Which is false, so our measured indeed value \textbf{does not} fall within one to two uncertainty intervals from our estimate. It is, however, close enough that we do not believe that we completely screwed up. The value makes sense; our approximations are just unideal.
 
 	\subsection{Computing $I_2$ (w/o masses)}
 	
@@ -453,6 +488,8 @@
 	\begin{align}
 		B_2 = 1.26494 \pm 0.00889\ \mpssq \label{eq:def-b2}
 	\end{align}
+	
+	So, plugging our values into equations \ref{eq:i-equation}~and \ref{eq:delta-i-formula}, we get
 	
 	\begin{align}
 		I_2 &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
@@ -495,7 +532,7 @@
 	\begin{align}
 		\delta_{I_E, r} &= |\frac{\partial}{\partial r}(M r^2 \frac{2g(B_2 - B_1)}{B_1 B_2}) \cdot \delta_r| \notag \\
 		&= |2r M \frac{2g(B_2 - B_1)}{B_1 B_2} \cdot \delta_r| \notag \\
-		&= 0.00063\ \iUnit
+		&\approx 0.00063\ \iUnit
 	\end{align}
 
 	\begin{align}
@@ -516,7 +553,7 @@
 		\delta_{I_E} &= \\
 		&= \sqrt{\delta_{I_E, r}^2 + \delta_{I_E, B_1}^2 + \delta_{I_E, B_2}^2} \notag \\
 		&= \sqrt{0.00063^2 + 0.00026^2 + 0.00017^2} \notag \\
-		&= 0.00070\ \iUnit
+		&\approx 0.00070\ \iUnit
 	\end{align}
 
 	We can then succinctly state that
@@ -543,7 +580,7 @@
 		&= |\frac{\partial}{\partial k} (4 (M_L k^2)) \cdot \delta_k| \notag \\
 		&= |8 M_L k \delta_k| \notag \\
 		&= |8 \cdot 0.225 \cdot 0.173 \cdot 0.01| \notag \\
-		&= 0.00311
+		&\approx 0.00311\ \iUnit
 	\end{align}
 	
 	\begin{align}
@@ -551,7 +588,7 @@
 		&= |\frac{\partial}{\partial M_L} (4 M_L k^2 \delta_{M_L})| \notag \\
 		&= |4 k^2 \delta_{M_L}| \notag \\
 		&= |4 \cdot 0.173^2 \cdot 0.002| \notag \\
-		&= 0.00023 \iUnit
+		&\approx 0.00023\ \iUnit
 	\end{align}
 	
 	Adding the uncertainties $\delta_{I_{\text{est}, E}, M_L}$ and $\delta_{I_{\text{est}, E}, r}$ in quadrature we get
@@ -559,10 +596,10 @@
 	\begin{align}
 		\delta_{I_{\text{est}, E}} &= \sqrt{\delta_{I_{\text{est}, E}, r}^2 + \delta_{I_{\text{est}, E}, M_L}^2} \notag \\
 		&= \sqrt{0.00311^2 + 0.00023^2} \notag \\
-		&= 0.00311 \iUnit
+		&\approx 0.00311\ \iUnit
 	\end{align}
 
-	Succinctly, we can thus state $I_{\text{est}, E}$ to be
+	Succinctly, we can thus state
 	
 	\begin{align}
 		I_{\text{est}, E} = 0.02693 \pm 0.00311\ \iUnit
@@ -591,6 +628,8 @@
 
 	we determine that indeed our estimated uncertainty lies within two uncertainty intervals. This provides us assurance that our value for $I_E$ is indeed reasonable. 
 	
+	What we have shown is that estimates for point masses seem to be more reliable than estimates based off of disc or ring approximations for \rwheel s.
+	
 	\section{Conclusion}
 	
 	Ultimately, using the law of conservation of angular momentum we were able to show that moments of inertia are able to be experimentally measured. These specific equations that we obtained based on the law of conservation of rotational inertia and the equation that we found for the respective uncertainty are very useful. In certain applications, such as those of objects with nonuniform density or shape, the technique presented proves particularly useful in determining the moment of inertia, since in such cases estimates involving integrals are very difficult and often rely on approximations. 
@@ -609,24 +648,22 @@
 	
 	\section{Appendix} \label{sect:appendix}
 		
+	As this lab was compiled with \LaTeX, the resources and files used for the lab are all stored within the same folder as the submission, which is located in a Github repository at \url{https://github.com/404wolf/phys123-lab5-rke}. This appendix contains enlarged plots for our lab, along with the raw data tables obtained from \loggerpro~and used by \origin.
+		
+	\subsection{Enlarged figures and Datatables}
+	
 	\begin{figure}[h]
 		\centering
-		\caption{Monte Carlo Simulation of Rotational Kinetic Energy Experiment plot}
-		\label{fig:monte-carlo-simulation}
 		\includegraphics[width=6in]{plots/monteCarloPlot.pdf}
 	\end{figure}
 		
 	\begin{figure}[h]
 		\centering
-		\caption{Masses $v^2$ vs sDist plot}
-		\label{fig:plot-without-masses}
 		\includegraphics[width=6in]{plots/withMassesPlot.pdf}
 	\end{figure}
 		
 	\begin{figure}[h] 
 		\centering
-		\caption{With Masses $v^2$ vs sDist plot}
-		\label{fig:plot-with-masses}
 		\includegraphics[width=6in]{plots/withoutMassesPlot.pdf}
 	\end{figure}
 	
@@ -745,7 +782,5 @@
 			0.7075648 & 1.1230088 & 0.705 & 0.999952488 & 0.6380581699 \\ \hline
 		\end{tabular}
 	\end{table}
-
-	As this lab was compiled with \LaTeX, the resources and files used for the lab are all stored within the same folder as the submission, which is located in a private Github repository at \newline \texttt{https://github.com/404wolf/phys123-lab5-rke}.
 	
 \end{document}
