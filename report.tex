@@ -320,7 +320,7 @@
 	
 	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included a Monte Carlo simulation to verify our computation for $I_1$, the moment of the \rwheel~including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia. 
 	
-	\subsection{Computing $J$ (Monte Carlo)}
+	\subsection{Computing $I_M$ (Monte Carlo)}
 	
 	Before examining our experimental values we decided to compute the moment of inertia resultant from our Monte Carlo system. The idea behind this is that for the Monte Carlo system we used our estimated value for $I$, ran a simulation, and applied a randomized skew to the data.
 	
@@ -384,9 +384,8 @@
 	Plugging in this and other aforestated values into equations \ref{eq:delta-i-formula} and \ref{eq:i-equation}, we get
 	
 	\begin{align}
-		I_M &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm \notag \\
-		&2 \delta_B \frac{M g r^2}{B^2} \notag \\
-		&= 0.07182 \pm 0.00104 \mpssq
+		I_M &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
+		&= 0.07182 \pm 0.00104\ \mpssq
 	\end{align}
 
 	In the next section we will use this to determine whether our value $I_1$, the moment of inertia for the system with masses, is reasonable
@@ -408,32 +407,19 @@
 	So, applying equations \ref{eq:i-equation}, we get
 	
 	\begin{align}
-		I_1 &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.68204} - 1) \notag \\
-		&\approx 0.06663\ \iUnit
-	\end{align}
-	
-	And, likewise, applying equation \ref{eq:delta-i-formula}~from the previous section, we get
-	
-	\begin{align}
-		\delta_I = 2 \delta_B \frac{M g r^2}{B^2}
-		&\approx 0.00017\ \iUnit
-	\end{align}
-	
-	So, we can succinctly state
-	
-	\begin{align}
-		I_1 = 0.06663 \pm 0.00017\ \iUnit \label{eq:def-i-measured}
+		I_1 &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
+		&= 0.06663 \pm 0.00017\ \iUnit \label{eq:def-i-measured}
 	\end{align}
 
-	Looking back at our predicted value for $I_1$ from section \ref{sect:estimating-moment-of-inertia}, we chose an estimate of $I$, denoting it $I_{\text{est}}$. Putting the previously estimated $I_1$, ``$I_{1, \text{est}}$'' inline with the measured $I_1$, ``$I_1$'', we have
+	Looking back at our Monte Carlo value for $I$, $I_M$ and placing it inline with our measured value, we have
 		
 	\begin{align}
-		I_{1, \text{est}} &= 0.072 \pm 0.072\ \iUnit \tag{\ref{eq:def-i-est}} \\
+		I_M &= 0.07182 \pm 0.00104\ \mpssq \iUnit \notag \\
 		I_1 &= 0.06663 \pm 0.00017\ \iUnit \tag{\ref{eq:def-i-measured}}
 	\end{align}
 
-	It is obvious that the actual value falls within one to two uncertainty intervals of the estimated value. The more important question, however, is whether the estimated value falls within one to two uncertainty intervals of the actual value. Two uncertainty intervals is
-	
+	To determine if our measured value falls within two uncertainty intervals of our Monte Carlo value, we first determine the distance of a double uncertainty interval to be
+	 
 	\begin{align}
 		\delta_{I_1} \cdot 2 \notag \\
 		&= 0.00017 \cdot 2 \notag \\
@@ -443,21 +429,14 @@
 	So, mathematically, we are checking
 	
 	\begin{align}
-		0.07182 &\notin \notag \\
+		0.06663 &\notin \notag \\
 		&\notin [0.07182 - 0.00034, 0.07182 + 0.00034] \notag \\
 		&\notin [0.07148, 0.07216]
 	\end{align}
 
 	\newcommand{\iSkew}{\Delta{I}_{\text{skew}}}
 
-	Which is false, so our measured indeed value \textbf{does not} fall within one to two uncertainty intervals from our estimate. To see how off we are, a percentage value also can be computed, $\iSkew$
-	
-	\begin{align}
-		\iSkew &= 100 \cdot (1 - \frac{I_1}{I_{1, \text{est}}}) \notag \\
-		&\approx 100 \cdot (1 - \frac{0.06663}{0.072}) \notag \\
-		&= 100 \cdot (1 - 0.92541) \notag \\
-		&= 7.45\%
-	\end{align}
+	Which is false, so our measured indeed value \textbf{does not} fall within one to two uncertainty intervals from our estimate.
 
 	\subsection{Computing $I_2$ (w/o masses)}
 	
