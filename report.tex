@@ -21,7 +21,7 @@
 	\maketitle
 	
 	\begin{abstract}
-		content...
+		Our experiment studied the law of conservation of rotational momentum by using it to experimentally determine the moment of inertia of a \rwheel. We attempted to guess a reasonable value based on similar shapes, such as a disc and ring, and then performed a Monte Carlo simulation to apply some degree of uncertainty to our estimate. The Monte Carlo simulation estimate for $I$, which we call $I_M$, was $0.07182 \pm 0.00104\ \iUnit$. We then experimentally measured the moment of inertia for the system, and determined that $I$, which we called $I_1$ for the given system, was $0.06663 \pm 0.00017 \iUnit$. Using this information we then attempted to find the specific moment of inertia for load masses discluding the \rwheel. To do this we also experimentally measured the moment of inertia of the \rwheel~without the masses to be $0.03482 \pm 0.00026\ \iUnit$, and then subtracted $I_2$ from $I_1$ to get $0.03181 \pm 0.00070$, which we denoted as $I_E$.
 	\end{abstract}
 	
 	\tableofcontents
@@ -134,7 +134,7 @@
 		gy = \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \label{eq:conservation-of-energy-gy-form}
 	\end{align}
 	
-	$v$ is a value that is determined by our \loggerpro software. It is computed with an advanced proprietary algorithm, but is similar to
+	$v$ is a value that is determined by our \loggerpro~software. It is computed with an advanced proprietary algorithm, but is similar to
 	
 	\begin{align}
 		v \approx \frac{\Delta{s}}{\Delta{T}} \label{eq:delta-s-delta-t}
@@ -150,7 +150,7 @@
 
 	\begin{figure}
 		\label{fig:apparatus}
-		\caption{\rwheel Inertia Wheel Apparatus \cite{labManual}}
+		\caption{\rwheel~Inertia Wheel Apparatus \cite{labManual}}
 		\centering
 		\includegraphics[width=2in]{graphics/apparatus.png}
 	\end{figure}
@@ -312,7 +312,7 @@
 	
 	Then we used \origin~to compute a line of best fit, of which the regression and slope has been superposed onto our plot figures, figure \ref{fig:monte-carlo-simulation}, \ref{fig:plot-with-masses}, and \ref{fig:plot-without-masses}.
 	
-	These aforementioned plots can be found in the appendix, section \ref{sect:appendix}. Additionally, tables \ref{table:with-masses-table} and \ref{table:without-masses-table} contain the actual datatables with raw \loggerpro data used for generating the plots.
+	These aforementioned plots can be found in the appendix, section \ref{sect:appendix}. Additionally, tables \ref{table:with-masses-table} and \ref{table:without-masses-table} contain the actual datatables with raw \loggerpro~data used for generating the plots.
 	
 	\section{Analysis}
 	
@@ -392,7 +392,7 @@
 	
 	\subsection{Computing $I_1$ (w/masses)}
 	
-	The first step towards accomplishing this goal was to determine whether our estimate for the moment of inertia of the \rwheel was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope of the \rwheel with the load masses, $B_1$ and $B_2$, the slope without load masses, obtained through \origin's provided linear fit line.
+	The first step towards accomplishing this goal was to determine whether our estimate for the moment of inertia of the \rwheel~was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope of the \rwheel~with the load masses, $B_1$ and $B_2$, the slope without load masses, obtained through \origin's provided linear fit line.
 
 	\newcommand{\massSlopeUncert}{\delta_B}
 
@@ -442,7 +442,7 @@
 	
 	\paragraph{Solving for $I_2$}
 	
-	Next we compute the value of $I_2$, the moment of inertia of the \rwheel without mass loads, using the same equations for $I_1$, equation \ref{eq:i-equation} and for $\delta_{I_2}$, equation \ref{eq:delta-i-formula}.
+	Next we compute the value of $I_2$, the moment of inertia of the \rwheel~without mass loads, using the same equations for $I_1$, equation \ref{eq:i-equation} and for $\delta_{I_2}$, equation \ref{eq:delta-i-formula}.
 	
 	For the system without masses, \origin~produced the linear regression value
 	
@@ -452,14 +452,7 @@
 	
 	\begin{align}
 		I_2 &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm 2 \delta_B \frac{M g r^2}{B^2} \notag \\
-		&= (0.0600)(0.200)^2 \cdot (\frac{2(9.81)}{(1.26494)} - 1) \notag \\
-		&\pm 2 (0.00889) \frac{(0.0600) (9.81) (0.200)^2}{(1.26494)^2} \notag
-	\end{align}
-
-	Which evaluates to
-	
-	\begin{align}
-		I_2 &= 0.03482 \pm 0.00026\ \iUnit
+		&= 0.03482 \pm 0.00026\ \iUnit
 	\end{align}
 
 	for the massless system. It makes intuitive sense that the moment of inertia is lesser. Inertia is a measure of all the infinite infinitesimally small point masses of an object. There are less masses in the system without mass loads, so the moment of inertia indeed should be notably lesser.
@@ -609,29 +602,29 @@
 	\section{Appendix} \label{sect:appendix}
 		
 	\begin{figure}[h]
-		\label{fig:monte-carlo-simulation}
 		\centering
 		\caption{Monte Carlo Simulation of Rotational Kinetic Energy Experiment plot}
+		\label{fig:monte-carlo-simulation}
 		\includegraphics[width=6in]{plots/monteCarloPlot.pdf}
 	\end{figure}
 		
 	\begin{figure}[h]
-		\label{fig:plot-without-masses}
 		\centering
 		\caption{Masses $v^2$ vs sDist plot}
+		\label{fig:plot-without-masses}
 		\includegraphics[width=6in]{plots/withMassesPlot.pdf}
 	\end{figure}
 		
 	\begin{figure}[h] 
-		\label{fig:plot-with-masses}
 		\centering
 		\caption{With Masses $v^2$ vs sDist plot}
+		\label{fig:plot-with-masses}
 		\includegraphics[width=6in]{plots/withoutMassesPlot.pdf}
 	\end{figure}
 	
 	\begin{table}[!ht]
-		\label{table:without-masses-table}
 		\caption{Data for falling counterweight \textbf{without} mass loads in place}
+		\label{table:without-masses-table}
 		\vspace{.1in}
 		
 		\centering
@@ -687,8 +680,9 @@
 		\end{tabular}
 	\end{table}
 	
-	\begin{table}[!ht] \label{table:with-masses-table}
+	\begin{table}[!ht]
 		\caption{Data for falling counterweight \textbf{without} mass loads in place}
+		\label{table:with-masses-table}
 		\vspace{.1in}
 		
 		\centering
