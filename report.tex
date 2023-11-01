@@ -57,6 +57,13 @@
 
 	This is conceptually helpful in understanding moment of inertia for arbitrary shapes, but is not practically useful for shapes that are not simple (i.e. circles, squares, collections of discreet point masses), such as the mass-loaded, spoked wheel that we used in our experiment, or those that have nonuniform mass distribution. As a result of such, it is often helpful to actually measure moment of inertia instead of attempting to compute it.
 	
+	There are also some known equations for moment of inertia of common shapes such as discs and hoops. These involve integral-based proofs, but are well known and are
+	
+	\begin{align}
+		I_{\text{disc}} = \frac{1}{2} M r^2 \\
+		I_{\text{hoop}} = M r^2
+	\end{align}
+	
 	\subsection{Conservation of Energy}
 	
 	The translational kinetic energy of an object in motion with mass $M$ moving at speed $v$ is given to be
@@ -148,6 +155,64 @@
 	
 	\begin{align}
 		v \approx \frac{\Delta{s}}{\Delta{T}} \label{eq:delta-s-delta-t}
+	\end{align}
+
+	\subsection{General Equation for $I$}
+	
+	For many of our computations we required an equation for $I$ in terms of $r$, $g$, and $M$. To begin, using the elementary equation for some slope $y^\prime$ of a linear function plotted on an $x$-$y$ graph, it is well known that
+	
+	\begin{align}
+		y^\prime &= \frac{x_2 - x_1}{y_2 - y_1} \notag \\
+		&= \frac{\Delta{y}}{\Delta{x}}
+	\end{align}
+	
+	We determined that for our vertical axis $v^2$ and horizontal axis $y$,
+	
+	\begin{align}
+		B &= \frac{v^2}{y} \label{eq:applied-slope-equations}
+	\end{align}
+	
+	Also, we note here that the unit for $B$ is $\mpssq$ because, when $v=1$ \& $y=1$
+	
+	\begin{align}
+		B &= \frac{v^2}{y} \notag \\
+		&= \frac{\frac{\text{m}}{\text{s}}^2}{m} \notag \\
+		&= \mpssq
+	\end{align}
+	
+	First, we solved equation \ref{eq:conservation-of-energy-gy-form}~for $v^2$ as a function of $y$
+	
+	\begin{align}
+		gy &= \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \tag{\ref{eq:conservation-of-energy-gy-form}} \\
+		v^2 &= \frac{2gy}{1 + \frac{I}{Mr^2}}
+	\end{align}
+	
+	\subsection{General equation for $I$}
+	
+	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$. This equation will be useful shortly, as once we have a general equation for $I$ in terms of $M$, $r$, $g$, and $y$, and a complementary uncertainty equation, we can easily compute moment of inertias for all of our systems.
+	
+	\begin{align}
+		B &= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \notag \\
+		&= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \cdot \frac{1 + \frac{I}{Mr^2}}{1 + \frac{I}{Mr^2}} \notag \\
+		&= \frac{2g}{(1 + \frac{I}{Mr^2})}
+	\end{align}
+	
+	\begin{align}
+		By\frac{I}{Mr^2} &= 2g - B \notag \\
+		I &= Mr^2 \cdot \frac{2g - B}{B} \notag \\
+		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-equation}
+	\end{align}
+	
+	\paragraph{General equation for $\delta_I$}
+	
+	To compute the error, we applied the derivative method to equation \ref{eq:i-equation}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later, but not for $I_1$ and $I_2$.
+	
+	\begin{align}
+		\delta_I &= |\frac{\partial}{\partial B} (Mr^2 \cdot (\frac{2g}{B} - 1)) \cdot \delta_B| \notag \\
+		&= |\frac{\partial}{\partial B} (Mr^2 \cdot (2g B^{-1} - 1)) \cdot \delta_B \notag| \notag \\
+		&= 2 M g r^2 \delta_B \cdot |\frac{\partial}{\partial B} (B^{-1} - 1) \cdot \delta_B \notag| \notag \\
+		&= 2 M g r^2 \delta_B \cdot |\frac{-1}{B^2}| \notag \\
+		&= 2 \delta_B \frac{M g r^2}{B^2} \label{eq:delta-i-formula}
 	\end{align}
 	
 	\section{Procedure}
@@ -349,64 +414,8 @@
 	\subsection{Computing $I_M$ (Monte Carlo)}
 	
 	Before examining our experimental values we decided to compute the moment of inertia resultant from our Monte Carlo system. The idea behind this is that for the Monte Carlo system we used our estimated value for $I$, ran a simulation, and applied a randomized skew to the data, so that when computing $I_1$, the moment of inertia for the system with masses, we would have a point of value to compare to.
-	
-	In order to find $I_M$ we first needed to find an equation for it. To begin, using the elementary equation for some slope $y^\prime$ of a linear function plotted on an $x$-$y$ graph, it is well known that
-	
-	\begin{align}
-		y^\prime &= \frac{x_2 - x_1}{y_2 - y_1} \notag \\
-		&= \frac{\Delta{y}}{\Delta{x}}
-	\end{align}
-	
-	We determined that for our vertical axis $v^2$ and horizontal axis $y$,
-	
-	\begin{align}
-		B &= \frac{v^2}{y} \label{eq:applied-slope-equations}
-	\end{align}
 
-	Also, we note here that the unit for $B$ is $\mpssq$ because, when $v=1$ \& $y=1$
-	
-	\begin{align}
-		B &= \frac{v^2}{y} \notag \\
-		&= \frac{\frac{\text{m}}{\text{s}}^2}{m} \notag \\
-		&= \mpssq
-	\end{align}
-	
-	First, we solved equation \ref{eq:conservation-of-energy-gy-form}~for $v^2$ as a function of $y$
-	
-	\begin{align}
-		gy &= \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \tag{\ref{eq:conservation-of-energy-gy-form}} \\
-		v^2 &= \frac{2gy}{1 + \frac{I}{Mr^2}}
-	\end{align}
-	
-	\paragraph{General equation for $I$}
-	
-	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$. This equation will be useful shortly, as once we have a general equation for $I$ in terms of $M$, $r$, $g$, and $y$, and a complementary uncertainty equation, we can easily compute moment of inertias for all of our systems.
-	
-	\begin{align}
-		B &= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \notag \\
-		&= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \cdot \frac{1 + \frac{I}{Mr^2}}{1 + \frac{I}{Mr^2}} \notag \\
-		&= \frac{2g}{(1 + \frac{I}{Mr^2})}
-	\end{align}
-
-	\begin{align}
-		By\frac{I}{Mr^2} &= 2g - B \notag \\
-		I &= Mr^2 \cdot \frac{2g - B}{B} \notag \\
-		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-equation}
-	\end{align}
-
-	\paragraph{General equation for $\delta_I$}
-	
-	To compute the error, we applied the derivative method to equation \ref{eq:i-equation}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later, but not for $I_1$ and $I_2$.
-	
-	\begin{align}
-		\delta_I &= |\frac{\partial}{\partial B} (Mr^2 \cdot (\frac{2g}{B} - 1)) \cdot \delta_B| \notag \\
-		&= |\frac{\partial}{\partial B} (Mr^2 \cdot (2g B^{-1} - 1)) \cdot \delta_B \notag| \notag \\
-		&= 2 M g r^2 \delta_B \cdot |\frac{\partial}{\partial B} (B^{-1} - 1) \cdot \delta_B \notag| \notag \\
-		&= 2 M g r^2 \delta_B \cdot |\frac{-1}{B^2}| \notag \\
-		&= 2 \delta_B \frac{M g r^2}{B^2} \label{eq:delta-i-formula}
-	\end{align}
-
-	Now, armed with these equations we could then plug in values to find $I_M$, the moment of inertia for the Monte Carlo system, and the corresponding $\delta_{I_M}$, the uncertainty in $I_M$. This value will be useful in the next section when evaluating the reasonable-ness of our measured value.
+	Computing $I_M$, the moment of inertia for the Monte Carlo system, and the corresponding $\delta_{I_M}$, the uncertainty in $I_M$ is fairly simple, using equations \ref{eq:i-equation} and \ref{eq:delta-i-formula} for the respective uncertainty.
 	
 	For the Monte Carlo system, according to our \origin~linear regression model,
 	
@@ -417,7 +426,7 @@
 	We will also henceforth use the generally accepted near-earth gravitational acceleration constant value
 	
 	\begin{align}
-		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \label{eq:def-g} \\
+		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \label{eq:def-g}
 	\end{align}
 	
 	Plugging in this and other aforestated values into equations \ref{eq:delta-i-formula} and \ref{eq:i-equation}, we get
@@ -437,7 +446,7 @@
 
 	\paragraph{Solving for $I_1$}
 	
-	Using the same equations that we derived for the Monte Carlo simluation, equations \ref{eq:i-equation} and \ref{eq:delta-i-formula} we then solved for $I_1$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B_1$ and its uncertainty, $\delta_B$.
+	Using the same equations that we used in the Monte Carlo simluation, \ref{eq:i-equation} and \ref{eq:delta-i-formula}, we then solved for $I_1$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B_1$ and its uncertainty, $\delta_B$.
 	
 	\begin{align}
 		B_1 &= 0.68204 \pm 0.00168\ \mpssq \label{eq:def-b1}
