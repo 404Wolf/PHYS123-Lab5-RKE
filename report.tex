@@ -320,63 +320,44 @@
 	
 	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included a Monte Carlo simulation to verify our computation for $I_1$, the moment of the \rwheel~including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia. 
 	
-	\subsection{Computing $I_1$ (w/masses)}
+	\subsection{Computing $J$ (Monte Carlo)}
 	
-	The first step towards accomplishing this goal was to determine whether our estimate for the moment of inertia of the \rwheel was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope of the \rwheel with the load masses, $B_1$ and $B_2$, the slope without load masses, obtained through \origin's provided linear fit line.
+	Before examining our experimental values we decided to compute the moment of inertia resultant from our Monte Carlo system. The idea behind this is that for the Monte Carlo system we used our estimated value for $I$, ran a simulation, and applied a randomized skew to the data.
 	
-	Using the elementary equation for some slope, $m$, with a linear function plotted on an $x$-$y$ graph,
+	In order to find $I$ we first needed to find an equation for it. To begin, using the elementary equation for some slope, $m$, with a linear function plotted on an $x$-$y$ graph,
 	
 	\begin{align}
 		m &= \frac{\Delta{y}}{\Delta{x}}
 	\end{align}
-
+	
 	We determined that for our vertical axis $v^2$ and horizontal axis $y$,
 	
 	\begin{align}
 		B_1 &= \frac{v^2}{y} &
 		B_2 &= \frac{v^2}{y} \label{eq:applied-slope-equations}
 	\end{align}
-
+	
 	First, we solved equation \ref{eq:conservation-of-energy-gy-form}~for $v^2$ as a function of $y$
 	
 	\begin{align}
 		gy &= \frac{1}{2}(1 + \frac{I}{Mr^2}) \cdot v^2 \tag{\ref{eq:conservation-of-energy-gy-form}} \\
 		v^2 &= \frac{2gy}{1 + \frac{I}{Mr^2}}
 	\end{align}
-
-	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I_1$
+	
+	Then we plugged this value for $v^2$ into equation~\ref{eq:applied-slope-equations}, finally solving for $I$
 	
 	\begin{align}
-		B_1 &= \frac{\frac{2gy}{1 + \frac{I_1}{Mr^2}}}{y} \notag \\
-		&= \frac{\frac{2gy}{1 + \frac{I_1}{Mr^2}}}{y} \cdot \frac{1 + \frac{I_1}{Mr^2}}{1 + \frac{I_1}{Mr^2}} \notag \\
-		&= \frac{2g}{(1 + \frac{I_1}{Mr^2})} \notag \\
-		By\frac{I_1}{Mr^2} &= 2g - B \notag \\
-		I_1 &= Mr^2 \cdot \frac{2g - B}{B_1} \notag \\
-		I_1 &= Mr^2 \cdot (\frac{2g}{B_1} - 1) \label{eq:i-for-masses}
-	\end{align}
-
-	\newcommand{\massSlopeUncert}{\delta_B}
-
-	\paragraph{Solving for $I_1$}
-	We then plugged in the values to solve for $I_1$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B_1$ and its uncertainty, which will henceforth be denoted as $\delta_B$, provided by \origin's linear regression model, and $g$, the generally accepted approximation of near-earth gravity. The more interesting situation, the situation where there are load masses in the \rwheel, is the one we made an estimate and did a Monte Carlo simulation for. We will compute the system without masses for the sake of completion later. 
-	
-	\begin{align}
-		r &= 0.200 \pm 0.002 \ \text{m} \tag{\ref{eq:def-r}} \\
-		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \label{eq:def-g} \\
-		M &= 0.0600 \pm 0.0001\ \text{kg} \tag{\ref{eq:def-mc}} \notag \\
-		B_1 &= 0.68204 \pm 0.00168\ \mpssq \label{eq:def-b1}
-	\end{align}
-
-	So,
-	
-	\begin{align}
-		I_1 &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.68204} - 1) \notag \\
-		&\approx 0.06663\ \iUnit
+		B &= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \notag \\
+		&= \frac{\frac{2gy}{1 + \frac{I}{Mr^2}}}{y} \cdot \frac{1 + \frac{I}{Mr^2}}{1 + \frac{I}{Mr^2}} \notag \\
+		&= \frac{2g}{(1 + \frac{I}{Mr^2})} \notag \\
+		By\frac{I}{Mr^2} &= 2g - B \notag \\
+		I &= Mr^2 \cdot \frac{2g - B}{B} \notag \\
+		I &= Mr^2 \cdot (\frac{2g}{B} - 1) \label{eq:i-equation}
 	\end{align}
 
 	\paragraph{Computing Error}
 	
-	To compute the error, we applied the derivative method to equation \ref{eq:i-for-masses}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later.
+	To compute the error, we applied the derivative method to equation \ref{eq:i-equation}, only factoring the error on $I_1$ due to $B$ as strictly requested by our lab manual. It is, however, worth noting that we believe that the uncertainties due to $M$ and $r$ could be significant, especially given that the $r$ term is squared. These uncertainties will, however, be taken into account for computation of $I_E$ later.
 	
 	\begin{align}
 		\delta_I &= |\frac{\partial}{\partial B} (Mr^2 \cdot (\frac{2g}{B} - 1)) \cdot \delta_B| \notag \\
@@ -385,8 +366,53 @@
 		&= 2 M g r^2 \delta_B \cdot |\frac{-1}{B^2}| \notag \\
 		&= 2 \delta_B \frac{M g r^2}{B^2} \label{eq:delta-i-formula}
 	\end{align}
+
+	Now, armed with these equations we could then plug in values to find $I_M$, the moment of inertia for the Monte Carlo system, and the corresponding $\delta_{I_M}$, the uncertainty in $I_M$. This value will be useful in the next section when evaluating the reasonable-ness of our measured value.
 	
-	Plugging in values, we get
+	For the Monte Carlo system, according to our \origin~linear regression model,
+	
+	\begin{align}
+		B_M &= 0.63436 \pm 0.00889\ \mpssq \\
+	\end{align}
+	
+	We will also henceforth use the generally accepted near-earth gravitational acceleration constant value
+	
+	\begin{align}
+		g &= 9.81 \pm 0.01\ \text{m} \text{s}^2 \label{eq:def-g} \\
+	\end{align}
+	
+	Plugging in this and other aforestated values into equations \ref{eq:delta-i-formula} and \ref{eq:i-equation}, we get
+	
+	\begin{align}
+		I_M &= Mr^2 \cdot (\frac{2g}{B} - 1) \pm \notag \\
+		&2 \delta_B \frac{M g r^2}{B^2} \notag \\
+		&= 0.07182 \pm 0.00104 \mpssq
+	\end{align}
+
+	In the next section we will use this to determine whether our value $I_1$, the moment of inertia for the system with masses, is reasonable
+	
+	\subsection{Computing $I_1$ (w/masses)}
+	
+	The first step towards accomplishing this goal was to determine whether our estimate for the moment of inertia of the \rwheel was reasonably close to our measured moment value. In order to make this determination we first worked to derive a formula for $I$, the measured value of the moment of inertia. To start, we note the equation for the slope of the \rwheel with the load masses, $B_1$ and $B_2$, the slope without load masses, obtained through \origin's provided linear fit line.
+
+	\newcommand{\massSlopeUncert}{\delta_B}
+
+	\paragraph{Solving for $I_1$}
+	
+	Using the same equations that we derived for the Monte Carlo simluation, equations \ref{eq:i-equation} and \ref{eq:delta-i-formula} we then solved for $I_1$ for the system including the load masses. Most of the values have already been discussed earlier in our procedure. The two novel values are $B_1$ and its uncertainty, $\delta_B$.
+	
+	\begin{align}
+		B_1 &= 0.68204 \pm 0.00168\ \mpssq \label{eq:def-b1}
+	\end{align}
+
+	So, applying equations \ref{eq:i-equation}, we get
+	
+	\begin{align}
+		I_1 &= (.06)(.2)^2 \cdot (\frac{2(9.81)}{0.68204} - 1) \notag \\
+		&\approx 0.06663\ \iUnit
+	\end{align}
+	
+	And, likewise, applying equation \ref{eq:delta-i-formula}~from the previous section, we get
 	
 	\begin{align}
 		\delta_I = 2 \delta_B \frac{M g r^2}{B^2}
@@ -437,7 +463,7 @@
 	
 	\paragraph{Solving for $I_2$}
 	
-	Next we compute the value of $I_2$, the moment of inertia of the \rwheel without mass loads, using the same equations for $I_1$, equation \ref{eq:i-for-masses} and for $\delta_{I_2}$, equation \ref{eq:delta-i-formula}.
+	Next we compute the value of $I_2$, the moment of inertia of the \rwheel without mass loads, using the same equations for $I_1$, equation \ref{eq:i-equation} and for $\delta_{I_2}$, equation \ref{eq:delta-i-formula}.
 	
 	For the system without masses, \origin~produced the linear regression value
 	
@@ -469,7 +495,7 @@
 		&= 0.03181\ \iUnit
 	\end{align}
 	
-	We will base the uncertainty of this measurement on the literal, complete equation, subbing $I$ into equation~\ref{eq:mass-load-i-only} for equation \ref{eq:i-for-masses}.
+	We will base the uncertainty of this measurement on the literal, complete equation, subbing $I$ into equation~\ref{eq:mass-load-i-only} for equation \ref{eq:i-equation}.
 	
 	\begin{align}
 		I_E &= I_1 - I_2 \tag{\ref{eq:mass-load-i-only}} \\
