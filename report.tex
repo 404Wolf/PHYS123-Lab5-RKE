@@ -160,7 +160,6 @@
 	Before conducting our experiment, we took measurements of various parts of our setup. First we obtained $r$ from the lab manual, the distance from the axle of the wheel to the string, and then we measured $k$, the distance from the axle of the wheel to the masses. Our measurement for $k$ was originally $0.073$, but we shifted it to $0.173$ because the original value did not make sense given the radius. We believe it was the result of misreading the ruler. For $r$ we used the provided uncertainty of $\pm 0.002 \text{m}$, whereas for $k$ we measured very carefully and chose the uncertainty to be $0.01 \text{m}$
 	
 	\begin{align}
-		d&=0.200 \pm 0.002\ \text{m} \label{eq:def-d} \\
 		r&=0.200 \pm 0.002\ \text{m} \label{eq:def-r} \\
 		k&=0.173 \pm 0.01\ \text{m} \label{eq:def-k}
 	\end{align}
@@ -319,7 +318,7 @@
 	
 	\paragraph{Objective}
 	
-	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included a Monte Carlo simulation to verify our computation for $I_1$, the moment of the \rwheel including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia. 
+	For the analysis of our data, our objective was to compute $I_E$, the measured moment of inertia for just the mass loads on the wheel. In order to do this, we took many intermediate steps to prevent mistakes and measurements. This included a Monte Carlo simulation to verify our computation for $I_1$, the moment of the \rwheel~including the mass loads, and an careful estimate of $I_E$ using the definition of moment of inertia. 
 	
 	\subsection{Computing $I_1$ (w/masses)}
 	
@@ -455,7 +454,7 @@
 	Which evaluates to
 	
 	\begin{align}
-		I_2 &= 0.03482 \pm .00026\ \iUnit
+		I_2 &= 0.03482 \pm 0.00026\ \iUnit
 	\end{align}
 
 	for the massless system. It makes intuitive sense that the moment of inertia is lesser. Inertia is a measure of all the infinite infinitesimally small point masses of an object. There are less masses in the system without mass loads, so the moment of inertia indeed should be notably lesser.
@@ -518,40 +517,77 @@
 		&= 0.00070\ \iUnit
 	\end{align}
 
+	We can then succinctly state that
+	
+	\begin{align}
+		I_E = 0.03181 \pm 0.00070\ \iUnit \label{eq:def-ie}
+	\end{align}
+
 	\subsubsection{Estimating $I_E$}
 	
-	Now, like how we came up with an approximate value for the \rwheel with masses and loads by approximating it to be a disc and a ring and averaging the two, we wanted to come up with a estimate in similar fashion for $I_E$. To do this, we treated the four loads $M_L$, of $0.225 \pm 0.002 \text{kg}$ each, as point masses for computing an estimate for $I_E$. To do this, we applied equation \ref{eq:def-i} to all 4 point masses.
+	Now, like how we came up with an approximate value for the \rwheel~with masses and loads by approximating it to be a disc and a ring and averaging the two, we wanted to come up with a estimate in similar fashion for $I_E$. To do this, we treated the four loads $M_L$, of $0.225 \pm 0.002 \text{kg}$ each, as point masses for computing an estimate for $I_E$. To do this, we applied equation \ref{eq:def-i} to all 4 point masses. Note that we use $k$ here instead of $r$ since the masses are at distance $k$ from the center of the \rwheel.
 	
 	\begin{align}
-		I_{\text{est}, E} &= \sum{M r^2} \notag \\
-		&= 4 (M_L r^2) \notag \\
-		&= 4 (0.225 0.1^2) \notag \\
-		&= 0.009
+		I_{\text{est}, E} &= \sum{M k^2} \notag \\
+		&= 4 (M_L k^2) \notag \\
+		&= 4 \cdot 0.225 \cdot 0.173^2 \notag \\
+		&= 0.02693\ \iUnit
 	\end{align}
 	
-	Computing $\delta_{I_{\text{est}, E}}$ is fairly trivial, requiring us to propagate $\delta_r$ and $\delta_{M_L}$'s effect on $\delta_{I_{\text{est}, E}}$ and then sum in quadrature. For this we used the derivative method.
+	Computing $\delta_{I_{\text{est}, E}}$ is fairly trivial, requiring us to propagate $\delta_k$ and $\delta_{M_L}$'s effect on $\delta_{I_{\text{est}, E}}$ and then sum in quadrature. For this we used the derivative method.
 	
 	\begin{align}
-		\delta_{I_{\text{est}, E}, r} \notag \\
-		&= |\frac{\partial}{\partial r} (4 (M_L r^2)) \cdot \delta_r| \notag \\
-		&= |8 M_L r \delta_r|
-		&= |8 \cdot 0.225 \cdot 0.1 \cdot 0.002| \notag \\
-		&= 0.00036
+		\delta_{I_{\text{est}, E}, k} \notag \\
+		&= |\frac{\partial}{\partial k} (4 (M_L k^2)) \cdot \delta_k| \notag \\
+		&= |8 M_L k \delta_k| \notag \\
+		&= |8 \cdot 0.225 \cdot 0.173 \cdot 0.01| \notag \\
+		&= 0.00311
 	\end{align}
 	
 	\begin{align}
 		\delta_{I_{\text{est}, E}, M_L} \notag \\
-		&= |\frac{\partial}{\partial M_L} (4 (M_L r^2)) \cdot \delta_{M_L}| \notag \\
-		&= |4 r^2 \delta_{M_L}| \notag \\
-		&= |4 \cdot 0.1^2 \cdot 0.002| \notag \\
-		&= 0.00008
+		&= |\frac{\partial}{\partial M_L} (4 M_L k^2 \delta_{M_L})| \notag \\
+		&= |4 k^2 \delta_{M_L}| \notag \\
+		&= |4 \cdot 0.173^2 \cdot 0.002| \notag \\
+		&= 0.00023 \iUnit
 	\end{align}
 	
 	Adding the uncertainties $\delta_{I_{\text{est}, E}, M_L}$ and $\delta_{I_{\text{est}, E}, r}$ in quadrature we get
 	
 	\begin{align}
-		\sqrt{\delta_{I_{\text{est}, E}, r}}
+		\delta_{I_{\text{est}, E}} &= \sqrt{\delta_{I_{\text{est}, E}, r}^2 + \delta_{I_{\text{est}, E}, M_L}^2} \notag \\
+		&= \sqrt{0.00311^2 + 0.00023^2} \notag \\
+		&= 0.00311 \iUnit
 	\end{align}
+
+	Succinctly, we can thus state $I_{\text{est}, E}$ to be
+	
+	\begin{align}
+		I_{\text{est}, E} = 0.02693 \pm 0.00311\ \iUnit
+	\end{align}
+
+	Now we can compare this to our value for $I_E$ to see if it is reasonable and agrees two within two uncertainty intervals. We recall that our value for $I_E$ is
+	
+	\begin{align}
+		I_E = 0.03181 \pm 0.00070\ \iUnit \tag{\ref{eq:def-ie}}
+	\end{align} 
+
+	Two uncertainty intervals from $I_E$ is
+	
+	\begin{align}
+		\delta_{I_E} \cdot 2 \notag \\
+		=& 0.00311 \cdot 2 \notag \\
+		=& 0.00622
+	\end{align}
+
+	So, upon inspection of the mathematical statement
+	
+	\begin{align}
+		0.02693 \in [0.03181 - 0.00622, 0.03181 + 0.00622] \notag \\
+		0.02693 \in [0.02559, 0.03803] \notag \\
+	\end{align}
+
+	we determine that indeed our estimated uncertainty lies within two uncertainty intervals. This provides us assurance that our value for $I_E$ is indeed reasonable. 
 	
 	\section{Conclusion}
 	
