@@ -266,7 +266,7 @@
 
 	\begin{table}[h]
 		\centering
-		\caption{Samples of random Monte Carlo data generation}
+		\caption{Samples of random Monte Carlo data generation. The seed used was $1016$.}
 		\begin{tabular}{c|c}
 			trial \# & s \\ \hline
 			1 & 0.15409 \\
@@ -593,8 +593,12 @@
 	
 	\section{Conclusion}
 	
+	Ultimately, using the law of conservation of angular momentum we were able to show that moments of inertia are able to be experimentally measured. These specific equations that we obtained based on the law of conservation of rotational inertia and the equation that we found for the respective uncertainty are very useful. In certain applications, such as those of objects with nonuniform density or shape, the technique presented proves particularly useful in determining the moment of inertia, since in such cases estimates involving integrals are very difficult and often rely on approximations. 
+	
+	We also showed that although Monte Carlo simulations are useful in inducing uncertainty in this specific use case, it still greatly hinges on the estimated value for the moment that you use for determining whether the simulated $I_M$ is close to the actual value of $I$. This, we noticed, greatly depends on the specific approximation used. In our case, we found that using disc and hoop approximations for the \rwheel~was much less ideal than the point mass approximations that we used for the load masses in computing moments, which is an interesting and potentially unintuitive finding.
+	
 	\section*{Acknowledgments}
-	I would like to thank Christopher Richner and Lily Kagy, CWRU Department of Physics, for their help in obtaining the experimental data, collaborating on preparation of the figures, and checking calculations. Additionally, I would like to thank Olivia Green, CWRU Department of Physics, for helping facilitate our lab.
+	I would like to thank Christopher Richner and Lily Kagy, CWRU Department of Physics, for their help in obtaining the experimental data, collaborating on preparation of the figures, and checking calculations. Additionally, I would like to thank Olivia Green, CWRU Department of Physics, for helping facilitate our lab. Also, I would like to thank the authors of our lab manual, which was of great aid in writing this report.
 	
 	\bibliographystyle{plain}
 	\nocite{textbook}
