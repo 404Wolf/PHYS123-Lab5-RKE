@@ -1,8 +1,12 @@
 \documentclass[coverpage]{article}
-\usepackage[margin=1.3in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{pdfpages}
 \usepackage{subcaption}
 \usepackage{amsmath}
+\usepackage{fancyhdr}
+	\fancyfoot{}
+	\lhead{Mermelstein, \thepage}
+	\pagestyle{fancy}
 
 \newcommand{\softwareText}[1]{\textit{#1}\texttrademark}
 \newcommand{\loggerpro}{\softwareText{Logger Pro}}
@@ -737,5 +741,7 @@
 			0.7075648 & 1.1230088 & 0.705 & 0.999952488 & 0.6380581699 \\ \hline
 		\end{tabular}
 	\end{table}
+
+	As this lab was compiled with \LaTeX, the resources and files used for the lab are all stored within the same folder as the submission, which is located in a private Github repository at \texttt{https://github.com/404wolf/phys123-lab5-rke}.
 	
 \end{document}
