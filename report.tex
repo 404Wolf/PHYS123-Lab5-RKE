@@ -29,7 +29,7 @@
 	\maketitle
 	
 	\begin{abstract}
-		Our experiment studied the law of conservation of energy by using it to experimentally determine the moment of inertia of a \rwheel. We attempted to guess a reasonable value based on similar shapes, such as a disc and ring, and then performed a Monte Carlo simulation to apply some degree of uncertainty to our estimate. The Monte Carlo simulation estimate for $I$, which we call $I_M$, was $0.07182 \pm 0.00104\ \iUnit$. We then experimentally measured the moment of inertia for the system, and determined that $I$, which we called $I_1$ for the given system, was $0.06663 \pm 0.00017 \iUnit$. Using this information we finally attempted to find the specific moment of inertia for load masses discluding the \rwheel. To do this we also experimentally measured the moment of inertia of the \rwheel~without the masses to be $0.03482 \pm 0.00026\ \iUnit$, and then subtracted $I_2$ from $I_1$ to get $0.03181 \pm 0.00070$, which we denoted as $I_E$. We found that predicting moments of inertia using different simple, known approximations, such as discs, hoops, and point masses, prove to be wildly varying in accuracy. Additionally, our analysis produces various reusable useful equations to quickly compute moments of inertia for arbitrary nonuniform systems.
+		Our experiment studied the law of conservation of energy by using it to experimentally determine the moment of inertia of a \rwheel. We attempted to guess a reasonable value based on similar shapes, such as a disc and ring, and then performed a Monte Carlo simulation to apply some degree of uncertainty to our estimate. The Monte Carlo simulation estimate for $I$, which we call $I_M$, was $0.07182 \pm 0.00104\ \iUnit$. We then experimentally measured the moment of inertia for the system, and determined that $I$, which we called $I_1$ for the given system, was $0.06663 \pm 0.00017\ \iUnit$. Using this information we finally attempted to find the specific moment of inertia for load masses discluding the \rwheel. To do this we also experimentally measured the moment of inertia of the \rwheel~without the masses to be $0.03482 \pm 0.00026\ \iUnit$, and then subtracted $I_2$ from $I_1$ to get $0.03181 \pm 0.00070\ \iUnit$, which we denoted as $I_E$. We found that predicting moments of inertia using different simple, known approximations, such as discs, hoops, and point masses, prove to be wildly varying in accuracy. Additionally, our analysis produces various reusable useful equations to quickly compute moments of inertia for arbitrary nonuniform systems.
 	\end{abstract}
 	
 	\tableofcontents
@@ -48,6 +48,8 @@
 		I&=M R^2 \label{eq:def-i}
 	\end{align}
 
+	The units for moments of inertia are, of course, $\iUnit$.
+	
 	The entire moment of inertia of an object can be computed by thinking of it as a collection of tiny masses. As the masses' volumes shrink down to some small volume with some proportionately small mass, the can then be eventually said to be the differential $dM$. Integrating all the small point masses across the entire object implies that the entire moment of inertia of an object, $I_{tot}$, is given by
 	
 	\begin{align}
@@ -79,7 +81,7 @@
 		s&=\theta R
 	\end{align}
 
-	and 
+	we also know that
 	
 	\begin{align}
 		\frac{d}{dt}s&=\frac{d}{dt}\theta R \notag \\
